@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Sign Up Page</h1>
+    <h1>Sign Up</h1>
     <form>
       <label for="username">username : </label>
       <input type="text" id="username"><br>
@@ -17,11 +17,17 @@
 </template>
 
 <script>
+// import axios from 'axios'
+
 export default {
-  name: 'SignUpView',
-  data() {
+  name: 'SingupView',
+  data: function () {
+    return {}
   },
   methods: {
+    signup: function () {
+      
+    }
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>LogIn Page</h1>
+    <h1>Login</h1>
     <form>
       <label for="username">username : </label>
       <input type="text" id="username"><br>
@@ -15,10 +15,20 @@
 
 <script>
 export default {
-  name: 'LogInView',
-  data() {
+  name: 'LoginView',
+  data: function() {
+    return {
+
+    }
   },
   methods: {
+    login: function () {
+
+    }
   }
 }
 </script>
+
+<style>
+
+</style>
