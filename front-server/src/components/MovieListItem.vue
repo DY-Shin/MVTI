@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h5>{{ article.id }}</h5>
-    <p>{{ article.title }}</p>
+    <h5>{{ movie.id }}</h5>
+    <p>{{ movie.title }}</p>
     <router-link
       :to="{
         name: 'DetailView',
-        params: { id: article.id }
+        params: { id: movie.id }
       }"  
     >
       [DETAIL]
@@ -16,9 +16,9 @@
 
 <script>
 export default {
-  name: 'ArticleListItem',
+  name: 'MovieListItem',
   props: {
-    article: Object,
+    movie: Object,
   }
 }
 </script>

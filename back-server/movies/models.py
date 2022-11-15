@@ -14,7 +14,6 @@ class Movie(models.Model):
     title = models.CharField(max_length=100)
     released_date = models.DateField()
     popularity = models.FloatField()
-    vote_avg = models.FloatField()
     overview = models.TextField()
     vote_avg = models.FloatField()
     poster_path = models.CharField(max_length=500)

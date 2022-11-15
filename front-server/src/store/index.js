@@ -8,24 +8,24 @@ const API_URL = "http://127.0.0.1:8000"
 
 export default new Vuex.Store({
   state: {
-    articles: [],
+    movies: [],
   },
   getters: {
   },
   mutations: {
-    GET_ARTICLES(state, articles){
-      state.articles = articles
+    GET_MOVIES(state, movies){
+      state.movies = movies
     }
   },
   actions: {
-    getArticles(context){
+    getMovies(context){
       axios({
         method: 'get',
-        url: `${API_URL}/api/v1/articles/`,
+        url: `${API_URL}/api/v1/movies/`,
       })
         .then(res=> {
           // console.log(res, context)
-          context.commit('GET_ARTICLES', res.data)
+          context.commit('GET_MOVIES', res.data)
         })
         .catch(err => console.log(err))
     }

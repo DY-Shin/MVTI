@@ -33,9 +33,9 @@ def movie_list(request):
 
 
 @api_view(['GET', 'DELETE', 'PUT'])
-def movie_detail(request, Movie_pk):
+def movie_detail(request, movie_pk):
     # Movie = Movie.objects.get(pk=Movie_pk)
-    movie = get_object_or_404(Movie, pk=Movie_pk)
+    movie = get_object_or_404(Movie, pk=movie_pk)
 
     if request.method == 'GET':
         serializer = MovieSerializer(movie)
