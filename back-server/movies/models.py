@@ -12,13 +12,17 @@ class Genre(models.Model):
 class Movie(models.Model):
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
+    original_title = models.CharField(max_length=100)
     released_date = models.DateField()
     popularity = models.FloatField()
     vote_avg = models.FloatField()
+    vote_count = models.IntegerField()
     overview = models.TextField()
-    vote_avg = models.FloatField()
     poster_path = models.CharField(max_length=500)
+    # backdrop_path = models.CharField(max_length=500)
+    adult = models.BooleanField()
     genres = models.ManyToManyField(Genre)
+    actors_data = models.CharField(max_length=500)
   
     def __str__(self):
         return self.title

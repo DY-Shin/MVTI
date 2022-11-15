@@ -64,21 +64,21 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
-# REST_FRAMEWORK = {
-#     # Authentication
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentication.TokenAuthentication',
-#     ],
+REST_FRAMEWORK = {
+    # Authentication
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework.authentication.TokenAuthentication',
+    # ],
 
-#     # permission
-#     # 'DEFAULT_PERMISSION_CLASSES': [
-#     #     # 'rest_framework.permissions.IsAuthenticated',
-#     #     'rest_framework.permissions.AllowAny',
-#     # ],
+    # # permission
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    # #     # 'rest_framework.permissions.IsAuthenticated',
+    #     'rest_framework.permissions.AllowAny',
+    # ],
 
 #     # spectacular Settings
 #     # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-# }
+}
 
 # SPECTACULAR_SETTINGS = {
 #     'TITLE': 'Your Project API',
@@ -100,10 +100,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:8080',
+# ]
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 ROOT_URLCONF = 'my_api.urls'
