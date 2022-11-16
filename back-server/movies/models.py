@@ -19,7 +19,7 @@ class Movie(models.Model):
     vote_count = models.IntegerField()
     overview = models.TextField()
     poster_path = models.CharField(max_length=500)
-    # backdrop_path = models.CharField(max_length=500)
+    backdrop_path = models.CharField(max_length=500)
     adult = models.BooleanField()
     genres = models.ManyToManyField(Genre)
     actors_data = models.CharField(max_length=500)
