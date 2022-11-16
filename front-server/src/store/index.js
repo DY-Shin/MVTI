@@ -30,8 +30,10 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, payload1) {
       state.token = payload1.token
       state.username = payload1.username
-      router.push({name: 'MovieView' })
+      // router.push({name: 'MovieView' })
+      // console.log(payload1.username)
     },
+
 
     LOGOUT(state){
       state.token = !state.token
@@ -65,6 +67,7 @@ export default new Vuex.Store({
         url: `${API_URL}/accounts/signup/`,
         data: {
           username: payload.username,
+          email: payload.email,
           password1: payload.password1,
           password2: payload.password2,
         }
@@ -81,6 +84,9 @@ export default new Vuex.Store({
       },
 
     logIn(context, payload) {
+      // if (!payload) {
+      //   alert('다시 시도해주세요!')
+      // }
       axios({
         method: 'post',
         url: `${API_URL}/accounts/login/`,
@@ -97,7 +103,10 @@ export default new Vuex.Store({
         }
         context.commit('SAVE_TOKEN', payload1)
       })
-      .catch(err => console.log(err))
+      .catch((err) => {
+        console.log(err)
+        // alert('다시 시도해주세요!')
+      })
     },
   },
   modules: {

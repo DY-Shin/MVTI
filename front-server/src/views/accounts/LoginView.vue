@@ -14,6 +14,9 @@
 </template>
 
 <script>
+import router from '@/router'
+// import validateEmail from ''
+
 export default {
   name: 'LogInView',
   data() {
@@ -32,6 +35,7 @@ export default {
         password
       }
       this.$store.dispatch('logIn', payload)
+      router.push({name: 'MovieView' })
     }
   }
 }
