@@ -36,7 +36,31 @@ export default {
       }
       this.$store.dispatch('logIn', payload)
       router.push({name: 'MovieView' })
-    }
+    },
+
+    // async logIn() {
+    //   try {
+
+    //     const username = this.username
+    //     const password = this.password
+  
+    //     const payload = {
+    //       username,
+    //       password
+    //     };
+    
+    //     this.$store.dispatch('logIn', payload)
+    //     router.push({name: 'MovieView' })
+    //   } catch (err) {
+    //     console.log(error.response.data)
+    //   } finally {
+    //     this.initForm()
+    //   }
+    // },
+    // initForm() {
+    //   this.username = '',
+    //   this.password = '',
+    // }
   }
 }
 </script>

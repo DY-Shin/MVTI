@@ -7,7 +7,7 @@
       <div class="navigations">
         <template v-if="isUserLogin">
           <span class="username">Hello, {{ $store.state.username }}</span>
-          <router-link :to="{ name: 'ProfileView' }"> [Profile]</router-link>
+          <router-link :to="{ name: 'ProfileView', params: { username: username } }"> [Profile]</router-link>
           <br>
           <button @click="logoutUser">LogOut</button>
         </template>
@@ -23,7 +23,18 @@
 
 <script>
 export default {
+  data() {
+    return {
+      
+    }
+  },
+  // props: {
+  //   username: Object,
+  // },
   computed: {
+    username() {
+      return this.$store.state.username
+    },
     isUserLogin() {
       return this.$store.getters.isLogin
     }

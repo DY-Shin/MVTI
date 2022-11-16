@@ -8,9 +8,9 @@
 
         <label for="email">email : </label>
         <input type="text" id="email" v-model="email"><br>
-        <p class="validation-text">
+        <p class="validation-text" v-if="!isUsernameValid && username">
               <!-- 이메일 형식 및 입력란 공백 확인 -->
-          <span class="warning" v-if="!isUsernameValid && username">
+          <span class="warning">
             Please enter an email address
           </span>
         </p>
@@ -28,6 +28,7 @@
 
 <script>
 import router from '@/router'
+import { validateEmail } from '@/utils/validation';
 // import axios from 'axios'
 
 export default {
@@ -39,6 +40,11 @@ export default {
       password1: null,
       password2: null,
     }
+  },
+  computed: {
+    isUsernameValid() {
+      return validateEmail(this.username);
+    },
   },
   methods: {
     signup() {

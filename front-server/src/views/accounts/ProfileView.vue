@@ -9,6 +9,9 @@
 
 export default {
   name: 'ProfileView',
+  // props: {
+  //   username: Object,
+  // },
   data: function () {
     return {}
   },
