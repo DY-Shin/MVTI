@@ -2,7 +2,6 @@
   <div id="app">
     <nav>
       <div>
-
         <router-link :to="{ name: 'MovieView' }">Movies</router-link>
       </div>
       <div class="navigations">
@@ -14,7 +13,7 @@
         </template>
         <template v-else>
           <router-link :to="{ name: 'SignupView' }">SignUpPage</router-link> |
-          <router-link :to="{ name: 'LoginView' }">LoginPage</router-link> |
+          <router-link :to="{ name: 'LoginView' }">LoginPage</router-link>
         </template>
       </div>
     </nav>
