@@ -8,7 +8,8 @@ Views
 ㄴ---movies
 	ㄴ---MovieView
 	ㄴ---DetailView
-ㄴ--- components
+
+Components
 	ㄴ---MovieList
 	ㄴ---MovieListItem
 	ㄴ---CommentList
