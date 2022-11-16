@@ -23,9 +23,11 @@ export default {
     return {
       username: null,
       password: null,
+      error: null,
     }
   },
   methods: {
+
     logIn() {
       const username = this.username
       const password = this.password
@@ -38,29 +40,46 @@ export default {
       router.push({name: 'MovieView' })
     },
 
-    // async logIn() {
-    //   try {
+    // logIn() {
+    //   const username = this.username
+    //   const password = this.password
 
-    //     const username = this.username
-    //     const password = this.password
-  
-    //     const payload = {
-    //       username,
-    //       password
-    //     };
-    
+    //   const payload = {
+    //     username,
+    //     password
+    //   }
+    //     .then(() => {
     //     this.$store.dispatch('logIn', payload)
     //     router.push({name: 'MovieView' })
-    //   } catch (err) {
-    //     console.log(error.response.data)
-    //   } finally {
-    //     this.initForm()
-    //   }
+    //     })
+    //     .catch(err =>
+    //       this.error = err.response.data.error)
+    //       alert('다시 시도해보세요.')
     // },
-    // initForm() {
-    //   this.username = '',
-    //   this.password = '',
-    // }
+
+  //   async logIn() {
+  //     try {
+
+  //       const username = this.username
+  //       const password = this.password
+  
+  //       const payload = {
+  //         username,
+  //         password
+  //       }
+
+  //       this.$store.dispatch('logIn', payload)
+  //       router.push({name: 'MovieView' })
+  //     } catch (err) {
+  //       console.log(err.response.data)
+  //     } finally {
+  //       this.initForm()
+  //     }
+  //   },
+  //   initForm() {
+  //     this.username = '',
+  //     this.password = '',
+  //   }
   }
 }
 </script>

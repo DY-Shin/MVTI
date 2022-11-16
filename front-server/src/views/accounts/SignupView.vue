@@ -8,7 +8,7 @@
 
         <label for="email">email : </label>
         <input type="text" id="email" v-model="email"><br>
-        <p class="validation-text" v-if="!isUsernameValid && username">
+        <p class="validation-text" v-if="!isEmailValid && email">
               <!-- 이메일 형식 및 입력란 공백 확인 -->
           <span class="warning">
             Please enter an email address
@@ -17,6 +17,12 @@
       </div>
       <label for="password1"> password : </label>
       <input type="password" id="password1" v-model="password1"><br>
+      <p class="validation-text" v-if="!isPasswordValid && password1">
+            <!-- 비밀번호 형식 및 입력란 공백 확인 -->
+        <span class="warning">
+          비밀번호는 8자 이상, 문자와 숫자를 1자 이상 포함해야 합니다.
+        </span>
+      </p>
 
       <label for="password2"> password confirmation : </label>
       <input type="password" id="password2" v-model="password2">
@@ -27,8 +33,9 @@
 </template>
 
 <script>
-import router from '@/router'
+// import router from '@/router'
 import { validateEmail } from '@/utils/validation';
+import { validatePassword } from '@/utils/validation';
 // import axios from 'axios'
 
 export default {
@@ -42,9 +49,12 @@ export default {
     }
   },
   computed: {
-    isUsernameValid() {
-      return validateEmail(this.username);
+    isEmailValid() {
+      return validateEmail(this.email);
     },
+    isPasswordValid() {
+      return validatePassword(this.password1)
+    }
   },
   methods: {
     signup() {
@@ -60,7 +70,7 @@ export default {
         password2
       }
       this.$store.dispatch('signUp', payload)
-      router.push({name: 'LoginView' })
+      // router.push({name: 'LoginView' })
     }
   }
 }

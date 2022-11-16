@@ -6,8 +6,10 @@
       </div>
       <div class="navigations">
         <template v-if="isUserLogin">
-          <span class="username">Hello, {{ $store.state.username }}</span>
-          <router-link :to="{ name: 'ProfileView', params: { username: username } }"> [Profile]</router-link>
+          <span class="username">Hello, </span>
+            <router-link :to="{ name: 'ProfileView', params: { username: username } }">
+              {{ $store.state.username }}
+          </router-link>
           <br>
           <button @click="logoutUser">LogOut</button>
         </template>

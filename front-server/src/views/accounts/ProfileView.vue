@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h3>{{ $store.state.username }}의 프로필</h3>
+    <h3>{{ username }}님의 프로필</h3>
+    <h5>{{ username }}님이 좋아한 영화</h5>
+    <h5>{{ username }}님이 남긴 리뷰</h5>
   </div>
 </template>
 
@@ -12,6 +14,11 @@ export default {
   // props: {
   //   username: Object,
   // },
+  computed: {
+    username() {
+      return this.$store.state.username
+    },
+  },
   data: function () {
     return {}
   },

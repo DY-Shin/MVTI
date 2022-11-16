@@ -5,3 +5,11 @@ function validateEmail(email) {
   }
    
   export { validateEmail };
+
+function validatePassword(password1) {
+    // 패스워드 형식 정규표현식
+    var pw = /(?=.*\d)(?=.*[a-zA-ZS]).{8,}/
+    return pw.test(String(password1));
+}
+
+  export { validatePassword };
