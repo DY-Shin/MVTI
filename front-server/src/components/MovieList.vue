@@ -2,12 +2,18 @@
   <div class="movie-list text-center">
     <h3>Movie List</h3>
     <hr>
-    <swiper ref="filterSwiper" :options="swiperOption" role="tablist">
+    <swiper 
+      ref="filterSwiper" 
+      :options="swiperOption" 
+      role="tablist"
+    >
       <MovieListItem
         v-for="movie in movies"
         :key="movie.id"
         :movie="movie"
       />
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
   </div>
 </template>
@@ -26,12 +32,17 @@ export default {
   data () {
     return {
       swiperOption: {
-        slidesPerView: 'auto',
+        slidesPerView: 5,
+        slidesPerGroup: 5,
         spaceBetween: 6, // swiper-slide 사이의 간격 지정
         slidesOffsetBefore: 0, // slidesOffsetBefore는 첫번째 슬라이드의 시작점에 대한 변경할 때 사용
         slidesOffsetAfter: 0, // slidesOffsetAfter는 마지막 슬라이드 시작점 + 마지막 슬라이드 너비에 해당하는 위치의 변경이 필요할 때 사용
         freeMode: true, // freeMode를 사용시 스크롤하는 느낌으로 구현 가능
         centerInsufficientSlides: true, // 컨텐츠의 수량에 따라 중앙정렬 여부를 결정함
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
       }
     }
   },
@@ -40,7 +51,6 @@ export default {
       return this.$store.state.movies
     }
   }
-
 }
 </script>
 

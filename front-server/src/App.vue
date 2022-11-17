@@ -1,22 +1,33 @@
 <template>
   <div id="app">
-    <nav>
-      <div>
-        <router-link :to="{ name: 'MovieView' }">Movies</router-link>
-      </div>
-      <div class="navigations">
-        <template v-if="isUserLogin">
-          <span class="username">Hello, </span>
-            <router-link :to="{ name: 'ProfileView', params: { username: username } }">
-              {{ $store.state.username }}
-          </router-link>
-          <br>
-          <button @click="logoutUser">LogOut</button>
-        </template>
-        <template v-else>
-          <router-link :to="{ name: 'SignupView' }">SignUpPage</router-link> |
-          <router-link :to="{ name: 'LoginView' }">LoginPage</router-link>
-        </template>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="@/assets/logo.png" alt="#" width="50px">
+        </a>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link :to="{ name: 'MovieView' }">Movies</router-link>
+          </li>
+          <template v-if="isUserLogin">
+            <li class="nav-item">
+              <span class="username">Hello, </span>
+                <router-link :to="{ name: 'ProfileView', params: { username: username } }">
+                  {{ $store.state.username }}
+              </router-link>
+            </li>
+              <br>
+              <button @click="logoutUser">LogOut</button>
+          </template>
+          <template v-else>
+            <li class="nav-item">
+              <router-link :to="{ name: 'SignupView' }">SignUpPage</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'LoginView' }">LoginPage</router-link>
+            </li>
+          </template>
+        </ul>
       </div>
     </nav>
     <router-view/>
@@ -27,12 +38,8 @@
 export default {
   data() {
     return {
-      
     }
   },
-  // props: {
-  //   username: Object,
-  // },
   computed: {
     username() {
       return this.$store.state.username
@@ -68,6 +75,10 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: rgb(25, 106, 255);
+  color: #42b983;
+}
+
+.nav-item {
+  margin: 7px;
 }
 </style>

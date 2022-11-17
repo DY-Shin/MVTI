@@ -44,11 +44,11 @@ export default {
         method: 'get',
         url: `${API_URL}/api/v1/movies/${this.movie.id}/`,
       })
-      .then((res) => {
-        this.imgUrl = `https://themoviedb.org/t/p/w300_and_h450_bestv2${res.data?.poster_path}`
-        // console.log(this.imgUrl)
-      })
-      .catch(err => console.log(err))
+        .then((res) => {
+          this.imgUrl = `https://themoviedb.org/t/p/w300_and_h450_bestv2${res.data?.poster_path}`
+          // console.log(this.imgUrl)
+        })
+        .catch(err => console.log(err))
     }
   }
 }
