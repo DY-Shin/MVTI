@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="@/assets/logo.png" alt="#" width="50px">
-        </a>
+        <router-link class="navbar-brand" :to="{ name: 'MovieView' }">
+          <img src="@/assets/MVTI.png" alt="#" width="100px">
+        </router-link>
         <ul class="navbar-nav">
           <li class="nav-item">
             <router-link :to="{ name: 'MovieView' }">Movies</router-link>
@@ -17,14 +17,14 @@
               </router-link>
             </li>
               <br>
-              <button @click="logoutUser">LogOut</button>
+              <button class="btn btn-dark" @click="logoutUser">LogOut</button>
           </template>
           <template v-else>
             <li class="nav-item">
-              <router-link :to="{ name: 'SignupView' }">SignUpPage</router-link>
+              <router-link :to="{ name: 'LoginView' }">LoginPage</router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'LoginView' }">LoginPage</router-link>
+              <router-link :to="{ name: 'SignupView' }">SignUpPage</router-link>
             </li>
           </template>
         </ul>
@@ -71,7 +71,7 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: white;
 }
 
 nav a.router-link-exact-active {
