@@ -13,7 +13,12 @@
         <p>내용 : {{ movie?.overview }}</p>
       </div>
     </div>
-    <CommentList/>
+    <template v-if="isLogin">
+    
+      <div id="comment" style="width: 30rem; margin: auto;">
+        <CommentList/>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -33,6 +38,11 @@ export default {
     return{
       movie: null,
       movieImgUrl: null,
+    }
+  },
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin
     }
   },
   created() {
@@ -61,4 +71,7 @@ export default {
   /* body {
     background-image: url('@/assets/logo.png');
   } */
+  #comment {
+    background-color: white;
+  }
 </style>

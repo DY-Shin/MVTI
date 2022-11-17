@@ -10,7 +10,6 @@ class Genre(models.Model):
         return self.name
 
 class Movie(models.Model):
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     original_title = models.CharField(max_length=100)
     released_date = models.DateField()
@@ -28,7 +27,7 @@ class Movie(models.Model):
         return self.title
 
 class Comment(models.Model):
-    article = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

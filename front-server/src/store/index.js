@@ -13,6 +13,7 @@ export default new Vuex.Store({
     movies: [],
     token: null,
     username: null,
+    comments: []
   },
   plugins: [
     createPersistedState(),
@@ -34,18 +35,20 @@ export default new Vuex.Store({
       // console.log(payload1.username)
     },
 
-
     LOGOUT(state){
       state.token = !state.token
       router.push({name: 'LoginView'})
-    }
+    },
 
     // SAVE_USERNAME(state, payload) {
     //   // state.token = token
     //   state.username = payload.username
     //   router.push({name: 'MovieView' })
     // },
-
+    CREATE_COMMENT(state, commentItem) {
+      state.comments.push(commentItem)
+      console.log(commentItem)
+    }
   },
   actions: {
     getMovies(context){
@@ -108,6 +111,26 @@ export default new Vuex.Store({
         alert('다시 시도해주세요!')
       })
     },
+
+    // createComment(context, commentContent) {
+    //   axios({
+    //     method: 'post',
+    //     url: `${API_URL}/movies/${this.movie_pk}/`,
+    //     data: {
+    //       content: commentContent,
+    //     }
+    //   })
+    //   .then(() => {
+    //     // console.log(res)
+    //     const commentItem = {
+    //       content : commentContent.content
+    //     }
+    //     context.commit('CREATE_COMMENT', commentItem)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+    // }
   },
   modules: {
   }
