@@ -73,7 +73,7 @@ export default new Vuex.Store({
         }
       })
         .then((res) => {
-          // console.log(res)
+          console.log(res)
           // const payload1 = {
           //   token : res.data.key,
           //   username : payload.username
@@ -81,6 +81,7 @@ export default new Vuex.Store({
           context.commit('SAVE_TOKEN', res.data.key)
         })
         .catch(err => console.log(err))
+        alert('다시 시도해주세요!')
       },
 
     logIn(context, payload) {
@@ -102,10 +103,11 @@ export default new Vuex.Store({
           username : payload.username
         }
         context.commit('SAVE_TOKEN', payload1)
+        router.push({name: 'MovieView' })
       })
       .catch((err) => {
         console.log(err)
-        // alert('다시 시도해주세요!')
+        alert('다시 시도해주세요!')
       })
     },
   },

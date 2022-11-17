@@ -33,7 +33,7 @@
 </template>
 
 <script>
-// import router from '@/router'
+import router from '@/router'
 import { validateEmail } from '@/utils/validation';
 import { validatePassword } from '@/utils/validation';
 // import axios from 'axios'
@@ -70,7 +70,7 @@ export default {
         password2
       }
       this.$store.dispatch('signUp', payload)
-      // router.push({name: 'LoginView' })
+      router.push({name: 'LoginView' })
     }
   }
 }
