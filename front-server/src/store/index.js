@@ -85,9 +85,6 @@ export default new Vuex.Store({
       },
 
     logIn(context, payload) {
-      // if (!payload) {
-      //   alert('다시 시도해주세요!')
-      // }
       axios({
         method: 'post',
         url: `${API_URL}/accounts/login/`,

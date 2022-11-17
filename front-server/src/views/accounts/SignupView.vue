@@ -2,32 +2,43 @@
   <div>
     <h1>Sign Up</h1>
     <form @submit.prevent="signup">
-      <label for="username">username : </label>
-      <input type="text" id="username" v-model="username"><br>
-      <div>
-
-        <label for="email">email : </label>
-        <input type="text" id="email" v-model="email"><br>
-        <p class="validation-text" v-if="!isEmailValid && email">
-              <!-- 이메일 형식 및 입력란 공백 확인 -->
-          <span class="warning">
-            Please enter an email address
-          </span>
-        </p>
+      <div class="col-4">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" v-model="username" aria-describedby="emailHelp"><br>
+          <div>
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" id="email" v-model="email">
+            <p class="validation-text" v-if="!isEmailValid && email">
+                  <!-- 이메일 형식 및 입력란 공백 확인 -->
+              <span class="warning">
+                Please enter an email address
+              </span>
+            </p>
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="password1" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password1" v-model="password1">
+          <p class="validation-text" v-if="!isPasswordValid && password1">
+                <!-- 비밀번호 형식 및 입력란 공백 확인 -->
+            <span class="warning">
+              비밀번호는 8자 이상, 문자와 숫자를 1자 이상 포함해야 합니다.
+            </span>
+          </p>
+        </div>
+  
+        <div class="mb-3">
+          <label for="password2" class="form-label">Password confirmation</label>
+          <input type="password" class="form-control" id="password2" v-model="password2">
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </div>
-      <label for="password1"> password : </label>
-      <input type="password" id="password1" v-model="password1"><br>
-      <p class="validation-text" v-if="!isPasswordValid && password1">
-            <!-- 비밀번호 형식 및 입력란 공백 확인 -->
-        <span class="warning">
-          비밀번호는 8자 이상, 문자와 숫자를 1자 이상 포함해야 합니다.
-        </span>
-      </p>
-
-      <label for="password2"> password confirmation : </label>
-      <input type="password" id="password2" v-model="password2">
-      
-      <input type="submit" value="SignUp">
     </form>
   </div>
 </template>
