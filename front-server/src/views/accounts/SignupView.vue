@@ -12,7 +12,7 @@
             <p class="validation-text" v-if="!isEmailValid && email">
                   <!-- 이메일 형식 및 입력란 공백 확인 -->
               <span class="warning">
-                Please enter an email address
+                올바른 이메일 형식을 입력해 주세요.
               </span>
             </p>
           </div>
@@ -24,7 +24,7 @@
           <p class="validation-text" v-if="!isPasswordValid && password1">
                 <!-- 비밀번호 형식 및 입력란 공백 확인 -->
             <span class="warning">
-              비밀번호는 8자 이상, 문자와 숫자를 1자 이상 포함해야 합니다.
+              비밀번호는 총 8자 이상, 문자와 숫자를 1자 이상 포함해야 합니다.
             </span>
           </p>
         </div>
@@ -86,3 +86,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.warning {
+  color: rgb(25, 106, 255);
+}
+</style>
