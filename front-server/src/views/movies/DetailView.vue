@@ -1,9 +1,8 @@
 <template>
-  <div 
-    class="justify-content-center mt-2" 
-    :style="{ backgroundImage : `url(https://image.tmdb.org/t/p/original${this.movie?.backdrop_path})`}"
-    style="background-size: cover;"
-  >
+  <div class="justify-content-center mt-2"
+  :style="{ backgroundImage : `url(https://image.tmdb.org/t/p/original${this.movie?.backdrop_path})`}"
+  style="background-size: cover;"
+>
     <h1>Detail</h1>
     <div class="card mt-3" style="width: 30rem; margin: 0 auto;">
       <img :src="movieImgUrl" alt="movie_img">
@@ -13,17 +12,23 @@
         <p>개봉일 : {{ movie?.released_date }}</p>
         <p>내용 : {{ movie?.overview }}</p>
       </div>
-    </div> 
+    </div>
+    <CommentList/>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+// import CommentForm from '@/components/CommentForm.vue'
+import CommentList from '@/components/CommentList.vue'
 const API_URL = "http://127.0.0.1:8000"
 // const body = document.querySelector("body")
 
 export default {
   name: 'DetailView',
+  components: {
+    CommentList
+  },
   data() {
     return{
       movie: null,
@@ -53,5 +58,7 @@ export default {
 </script>
 
 <style>
-
+  /* body {
+    background-image: url('@/assets/logo.png');
+  } */
 </style>

@@ -9,7 +9,7 @@
           <li class="nav-item">
             <router-link :to="{ name: 'MovieView' }">Movies</router-link>
           </li>
-          <template v-if="isUserLogin">
+          <template v-if="isLogin">
             <li class="nav-item">
               <span class="username">Hello, </span>
                 <router-link :to="{ name: 'ProfileView', params: { username: username } }">
@@ -17,7 +17,7 @@
               </router-link>
             </li>
               <br>
-              <button class="btn btn-dark" @click="logoutUser">LogOut</button>
+              <button class="btn btn-dark" @click="Logout">LogOut</button>
           </template>
           <template v-else>
             <li class="nav-item">
@@ -44,15 +44,26 @@ export default {
     username() {
       return this.$store.state.username
     },
-    isUserLogin() {
+    isLogin() {
       return this.$store.getters.isLogin
     }
   },
   methods: {
-    logoutUser() {
+    Logout() {
       this.$store.commit('LOGOUT')
+    },
+    새창 () {
+      localStorage.setItem('vuex', sessionStorage.getItem('vuex')) // vuex session to local
     }
-  }
+  },
+  beforeCreate () {
+    let localVuex = localStorage.getItem('vuex') // local storage에 vuex 저장여부 확인
+    if (localVuex) { // 저장되어 있는 경우 session storage로 이동 후 local 제거
+      localVuex = JSON.parse(localVuex)
+      this.$store.commit('setXXX', localVuex.xxx)
+      localStorage.removeItem('vuex') 
+    }
+  },
 }
 </script>
 
@@ -71,7 +82,7 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: white;
+  color: #2c3e50;
 }
 
 nav a.router-link-exact-active {
