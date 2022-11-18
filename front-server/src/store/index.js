@@ -45,8 +45,9 @@ export default new Vuex.Store({
     //   state.username = payload.username
     //   router.push({name: 'MovieView' })
     // },
+
     CREATE_COMMENT(state, commentItem) {
-      state.comments.push(commentItem)
+      state.comments = commentItem
       console.log(commentItem)
     }
   },
@@ -57,7 +58,7 @@ export default new Vuex.Store({
         url: `${API_URL}/api/v1/movies/`,
       })
         .then(res=> {
-          console.log(res, context)
+          // console.log(res, context)
           context.commit('GET_MOVIES', res.data)
         })
         .catch(err => console.log(err))

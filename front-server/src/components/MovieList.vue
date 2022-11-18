@@ -1,7 +1,6 @@
 <template>
   <div class="movie-list text-center">
-    <h3>Movie List</h3>
-    <hr>
+    <h1>Movie List</h1>
     <swiper 
       ref="filterSwiper" 
       :options="swiperOption" 
@@ -32,7 +31,7 @@ export default {
       swiperOption: {
         slidesPerView: 'auto',
         slidesPerGroup: 4,
-        spaceBetween: 0, // swiper-slide 사이의 간격 지정
+        spaceBetween: 6, // swiper-slide 사이의 간격 지정
         slidesOffsetBefore: 0, // slidesOffsetBefore는 첫번째 슬라이드의 시작점에 대한 변경할 때 사용
         slidesOffsetAfter: 0, // slidesOffsetAfter는 마지막 슬라이드 시작점 + 마지막 슬라이드 너비에 해당하는 위치의 변경이 필요할 때 사용
         freeMode: true, // freeMode를 사용시 스크롤하는 느낌으로 구현 가능
@@ -54,28 +53,9 @@ export default {
 <style lang="scss" scoped>
 .movie-list {
   text-align: start;
+  color: white;
 }
 .swiper-container {
-  padding: 0 20px; // 여백값을 지정할 경우 슬라이드의 시작점과 종점이 이에 영향을 받아 변경됨
-  &:before,
-  &:after { // 가상선택자를 활용하여 그라데이션 값 추가
-    display: block;
-    position: absolute;
-    top: 0;
-    width: 20px; // container에 준 여백값보다 크지 않게 사이즈 지정하기 (swiper-slide의 클릭 이벤트에 영향을 주지 않고, 이렇게 지정해야 그라데이션이 영역 내부에 있는 탭이 스크롤 하기 전엔 영향을 주지 않음)
-    height: 100%;
-    z-index: 10;
-    content: "";
-  }
-  &:before {
-    left: 0;
-    background: linear-gradient(90deg, #fff -20.19%, rgba(255, 255, 255, 0.8) 18.31%, rgba(255, 255, 255, 0) 75%);
-  }
-  &:after {
-    right: 0;
-    background: linear-gradient(270deg, #fff -20.19%, rgba(255, 255, 255, 0.8) 18.31%, rgba(255, 255, 255, 0) 75%);
-  }
-  //...중략
   .swiper-wrapper {
     .swiper-slide {
       width: 300px; // auto 값을 지정해야 슬라이드의 width값이 텍스트 길이 기준으로 바뀜
@@ -87,7 +67,7 @@ export default {
       color: #84868c;
       border: 0;
       border-radius: 18px;
-      background: #f3f4f7;
+      // background: #f3f4f7;
       appearance: none;
       cursor: pointer;
     }

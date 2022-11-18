@@ -1,13 +1,22 @@
 <template>
-  <div>{{ comments.content }}</div>
+  <div>
+    <li>
+      {{ comment }}
+    </li>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'CommentListItem',
   props: {
-    comments: Object,
+    comment: String,
   }
+  // computed: {
+  //   comment() {
+  //     return this.$store.state.comments
+  //   }
+  // }
 }
 </script>
 

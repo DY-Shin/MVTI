@@ -1,19 +1,19 @@
 <template>
-  <div>
-    <div class="d-flex justify-content-start mt-2 flex-row"
+  <div 
     :style="{ backgroundImage : `url(https://image.tmdb.org/t/p/original${this.movie?.backdrop_path})`}"
-    style="background-size: cover; height: 100vh; width: 100vw;"
+    style="background-size: cover; height: 100vh; width: 99.1vw;"
   >
+    <div class="d-flex flex-row justify-content-evenly">
       <!-- <h1>Detail</h1> -->
-      <div class="col">
-        <div class="card mt-3" style="width: 20rem; margin: 0 auto;">
+      <div class="col-3">
+        <div class="card mt-5" style="width: 20rem; margin: 0 auto;">
           <img :src="movieImgUrl" alt="movie_img">
         </div>
       </div>
-      <div class="col-6">
-        <div class="card mt-3">
+      <div class="col-7">
+        <div class="card mt-5" id="body">
           <div class="card-body">
-            <p class="card-title">제목 : {{ movie?.title }}</p>
+            <h5 class="card-header">{{ movie?.title }}</h5>
             <p>평점 : {{ movie?.vote_avg }}</p>
             <p>개봉일 : {{ movie?.released_date }}</p>
             <p>내용 : {{ movie?.overview }}</p>
@@ -75,9 +75,10 @@ export default {
 </script>
 
 <style>
-  /* body {
-    background-image: url('@/assets/logo.png');
-  } */
+  #body {
+    background-color: rgba( 255, 255, 255, 0.7 );
+    color: black;
+  }
   #comment {
     background-color: white;
   }

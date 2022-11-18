@@ -34,15 +34,10 @@ export default {
       const content = this.commentContent
       if (!content) {
         alert('내용을 입력해주세요')
-        return
+        // return
         // console.log()
       } else {
-        this.$store.dispatch('createComment', this.commentContent)
-      }
-      this.commentContent = null
-      console.log(this.$route.params)
-
-      axios({
+        axios({
         method: 'post',
         url: `${API_URL}/api/v1/movies/${this.$route.params.id}/comments/`,
         data: {
@@ -52,8 +47,8 @@ export default {
           Authorization: `Token ${this.$store.state.token}`
         }
       })
-      .then((res) => {
-        console.log(res)
+      .then(() => {
+        // console.log(res)
         const commentItem = {
           content
         }
@@ -62,6 +57,12 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+        
+      }
+      this.commentContent = null
+      // console.log(this.$route.params)
+
+      
     }
   }
 }
