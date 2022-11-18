@@ -58,6 +58,7 @@ export default {
 #card-body {
   margin-top: 30px;
   margin-bottom: 30px;
+  height: 50px;
   word-break: keep-all;
   }
 

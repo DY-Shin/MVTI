@@ -1,20 +1,27 @@
 <template>
-  <div class="justify-content-center mt-2"
-  :style="{ backgroundImage : `url(https://image.tmdb.org/t/p/original${this.movie?.backdrop_path})`}"
-  style="background-size: cover;"
->
-    <h1>Detail</h1>
-    <div class="card mt-3" style="width: 30rem; margin: 0 auto;">
-      <img :src="movieImgUrl" alt="movie_img">
-      <div class="card-body">
-        <p class="card-title">제목 : {{ movie?.title }}</p>
-        <p>평점 : {{ movie?.vote_avg }}</p>
-        <p>개봉일 : {{ movie?.released_date }}</p>
-        <p>내용 : {{ movie?.overview }}</p>
+  <div>
+    <div class="d-flex justify-content-start mt-2 flex-row"
+    :style="{ backgroundImage : `url(https://image.tmdb.org/t/p/original${this.movie?.backdrop_path})`}"
+    style="background-size: cover; height: 100vh; width: 100vw;"
+  >
+      <!-- <h1>Detail</h1> -->
+      <div class="col">
+        <div class="card mt-3" style="width: 20rem; margin: 0 auto;">
+          <img :src="movieImgUrl" alt="movie_img">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card mt-3">
+          <div class="card-body">
+            <p class="card-title">제목 : {{ movie?.title }}</p>
+            <p>평점 : {{ movie?.vote_avg }}</p>
+            <p>개봉일 : {{ movie?.released_date }}</p>
+            <p>내용 : {{ movie?.overview }}</p>
+          </div>
+        </div>
       </div>
     </div>
     <template v-if="isLogin">
-    
       <div id="comment" style="width: 30rem; margin: auto;">
         <CommentList/>
       </div>
