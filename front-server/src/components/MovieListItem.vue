@@ -6,7 +6,7 @@
         params: { id: movie.id }
       }"  
     >
-      <div>
+      <div id="card">
         <img :src="imgUrl" alt="img">
         <div id="card-body">
           <!-- <h5>{{ movie.id }}</h5> -->
@@ -56,14 +56,17 @@ export default {
 
 <style scoped>
 #card-body {
-  margin-top: 30px;
+  margin-top: 10px;
   margin-bottom: 30px;
-  height: 50px;
   word-break: keep-all;
+  min-height: 60px;
   }
 
 a {
   color: black !important;
   text-decoration: none !important;
+}
+#card {
+  background-color: rgba( 255, 255, 255, 0.7 );
 }
 </style>

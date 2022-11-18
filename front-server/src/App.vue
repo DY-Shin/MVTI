@@ -6,9 +6,6 @@
           <img src="@/assets/MVTI.png" alt="#" width="100px">
         </router-link>
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link :to="{ name: 'MovieView' }">Movies</router-link>
-          </li>
           <template v-if="isLogin">
             <li class="nav-item">
               <span class="username">Hello, </span>
@@ -17,7 +14,7 @@
               </router-link>
             </li>
               <br>
-              <button class="btn btn-dark" @click="Logout">LogOut</button>
+              <button class="btn btn-primary" @click="Logout">LogOut</button>
           </template>
           <template v-else>
             <li class="nav-item">
@@ -74,15 +71,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: black;
+  min-height: 961px;
 }
 
 nav {
   padding: 30px;
+  color: white;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: white;
 }
 
 nav a.router-link-exact-active {
