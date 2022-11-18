@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="profile">
     <h3>{{ username }}님의 프로필</h3>
     <h5>{{ username }}님이 좋아한 영화</h5>
     <h5>{{ username }}님이 남긴 리뷰</h5>
@@ -23,9 +23,14 @@ export default {
     return {}
   },
   methods: {
-    signup: function () {
-      
+    signup: function () {     
     }
   }
 }
 </script>
+
+<style>
+  #profile{
+    color: white;
+  }
+</style>

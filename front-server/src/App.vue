@@ -8,20 +8,20 @@
         <ul class="navbar-nav">
           <template v-if="isLogin">
             <li class="nav-item">
-              <span class="username">Hello, </span>
+              <span class="username">환영합니다, 
                 <router-link :to="{ name: 'ProfileView', params: { username: username } }">
                   {{ $store.state.username }}
-              </router-link>
+                </router-link>님!
+              </span>
             </li>
-              <br>
-              <button class="btn btn-primary" @click="Logout">LogOut</button>
+              <button class="btn btn-primary" @click="Logout">로그아웃</button>
           </template>
           <template v-else>
             <li class="nav-item">
-              <router-link :to="{ name: 'LoginView' }">LoginPage</router-link>
+              <router-link :to="{ name: 'LoginView' }">로그인</router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'SignupView' }">SignUpPage</router-link>
+              <router-link :to="{ name: 'SignupView' }">회원가입</router-link>
             </li>
           </template>
         </ul>
@@ -78,11 +78,12 @@ export default {
 
 nav {
   padding: 30px;
+  color: white;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: white;
 }
 
 nav a.router-link-exact-active {

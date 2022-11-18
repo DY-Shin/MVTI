@@ -38,26 +38,25 @@ export default {
         // console.log()
       } else {
         axios({
-        method: 'post',
-        url: `${API_URL}/api/v1/movies/${this.$route.params.id}/comments/`,
-        data: {
-          content
-        },
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`
-        }
-      })
-      .then(() => {
-        // console.log(res)
-        const commentItem = {
-          content
-        }
-        this.$store.commit('CREATE_COMMENT', commentItem)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-        
+          method: 'post',
+          url: `${API_URL}/api/v1/movies/${this.$route.params.id}/comments/`,
+          data: {
+            content
+          },
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`
+          }
+        })
+          .then(() => {
+            // console.log(res)
+            const commentItem = {
+              content
+            }
+            this.$store.commit('CREATE_COMMENT', commentItem)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       }
       this.commentContent = null
       // console.log(this.$route.params)

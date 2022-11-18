@@ -1,6 +1,6 @@
 <template>
   <div 
-    :style="{ backgroundImage : `url(https://image.tmdb.org/t/p/original${this.movie?.backdrop_path})`}"
+    :style="{ backgroundImage : `url(${backImgUrl})`}"
     style="background-size: cover; height: 100vh; width: 99.1vw;"
   >
     <div class="d-flex flex-row justify-content-evenly">
@@ -13,7 +13,7 @@
       <div class="col-7">
         <div class="card mt-5" id="body">
           <div class="card-body">
-            <h5 class="card-header">{{ movie?.title }}</h5>
+            <h5 class="card-header"><b>{{ movie?.title }}</b></h5>
             <p>평점 : {{ movie?.vote_avg }}</p>
             <p>개봉일 : {{ movie?.released_date }}</p>
             <p>내용 : {{ movie?.overview }}</p>
@@ -34,7 +34,6 @@ import axios from 'axios'
 // import CommentForm from '@/components/CommentForm.vue'
 import CommentList from '@/components/CommentList.vue'
 const API_URL = "http://127.0.0.1:8000"
-// const body = document.querySelector("body")
 
 export default {
   name: 'DetailView',
@@ -45,6 +44,7 @@ export default {
     return{
       movie: null,
       movieImgUrl: null,
+      backImgUrl: null,
     }
   },
   computed: {
@@ -54,8 +54,6 @@ export default {
   },
   created() {
     this.getMovieDetail()
-    // const backImgUrl = `https://image.tmdb.org/t/p/original${this.movie?.backdrop_path}`
-
   },
   methods: {
     getMovieDetail() {
@@ -64,9 +62,10 @@ export default {
         url: `${API_URL}/api/v1/movies/${this.$route.params.id}/`,
       })
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         this.movie = res.data
         this.movieImgUrl = `https://themoviedb.org/t/p/w600_and_h900_bestv2${this.movie?.poster_path}`
+        this.backImgUrl = `https://image.tmdb.org/t/p/original${this.movie?.backdrop_path}`
       })
       .catch(err => console.log(err))
     }

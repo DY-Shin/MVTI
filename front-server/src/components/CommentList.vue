@@ -3,7 +3,6 @@
     <h3>Comment List</h3>
     <CommentForm/>
     <ul>
-
       <CommentListItem
         v-for="comment in comments"
         :key="comment.id"
