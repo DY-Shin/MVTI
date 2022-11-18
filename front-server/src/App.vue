@@ -78,12 +78,11 @@ export default {
 
 nav {
   padding: 30px;
-  color: white;
 }
 
 nav a {
   font-weight: bold;
-  color: white;
+  color: #2c3e50;
 }
 
 nav a.router-link-exact-active {
