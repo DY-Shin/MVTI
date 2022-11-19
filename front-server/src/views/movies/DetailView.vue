@@ -54,6 +54,7 @@ export default {
   },
   created() {
     this.getMovieDetail()
+    this.getComments()
   },
   methods: {
     getMovieDetail() {
@@ -68,6 +69,13 @@ export default {
         this.backImgUrl = `https://image.tmdb.org/t/p/original${this.movie?.backdrop_path}`
       })
       .catch(err => console.log(err))
+    },
+
+    // 영화에 달린 코멘트 가져오기
+    getComments(){
+      const movieId = this.$route.params.id
+
+      this.$store.commit('GET_COMMENTS', movieId)
     }
   }
 }

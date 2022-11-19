@@ -40,7 +40,6 @@ def movie_detail(request, movie_pk):
 
     if request.method == 'GET':
         serializer = MovieSerializer(movie)
-        print(serializer.data)
         return Response(serializer.data)
     
     elif request.method == 'DELETE':
@@ -130,14 +129,16 @@ def comment_detail(request, comment_pk):
                 return Response(serializer.data)
 
 
-@api_view(['POST'])
-def comment_create(request, pk):
-    movie = get_object_or_404(Movie, pk=pk)
-    if request.user.is_authenticated:
-        request.data["movie"] = movie.id
-        request.data["user"] = request.user.id
+@api_view(['GET','POST'])
+def comment_create(request, movie_pk):
+    movie = Movie.objects.get(pk=movie_pk)
+    # movie = get_object_or_404(Movie, pk=movie_pk)
+    if request.method == 'GET':
+        serializer = MovieSerializer(movie)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(movie=movie)
-            # print('========================')
             return Response(serializer.data, status=status.HTTP_201_CREATED)

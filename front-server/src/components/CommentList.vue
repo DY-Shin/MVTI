@@ -27,6 +27,9 @@ export default {
     comments() {
       return this.$store.state.comments
     }
+  },
+  methods: {
+    
   }
 }
 </script>

@@ -13,7 +13,7 @@ export default new Vuex.Store({
     movies: [],
     token: null,
     username: null,
-    comments: []
+    comments: null,
   },
   plugins: [
     createPersistedState(),
@@ -49,6 +49,17 @@ export default new Vuex.Store({
     CREATE_COMMENT(state, commentItem) {
       state.comments = commentItem
       console.log(commentItem)
+    },
+
+    GET_COMMENTS(state, movieId) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/movies/${movieId}/comments/`,
+      })
+      .then((res) => {
+        state.comments = res.data.comment_set
+      })
+      .catch(err => console.log(err))
     }
   },
   actions: {
@@ -112,7 +123,7 @@ export default new Vuex.Store({
         alert('다시 시도해주세요!')
       })
     },
-
+  
     // createComment(context, commentContent) {
     //   axios({
     //     method: 'post',

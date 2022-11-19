@@ -1,7 +1,7 @@
 <template>
   <div>
     <li>
-      {{ comment }}
+      {{ comment.content }}
     </li>
   </div>
 </template>
@@ -10,7 +10,7 @@
 export default {
   name: 'CommentListItem',
   props: {
-    comment: String,
+    comment: Object,
   }
   // computed: {
   //   comment() {

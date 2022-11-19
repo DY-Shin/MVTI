@@ -30,11 +30,11 @@ class Movie(models.Model):
 
 class Comment(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    score = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    # score = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     def username(self):
         return self.user.username
