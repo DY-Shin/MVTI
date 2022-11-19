@@ -33,7 +33,7 @@ def movie_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@api_view(['GET', 'DELETE', 'PUT'])
+@api_view(['GET'])
 def movie_detail(request, movie_pk):
     # Movie = Movie.objects.get(pk=Movie_pk)
     movie = get_object_or_404(Movie, pk=movie_pk)
@@ -42,15 +42,6 @@ def movie_detail(request, movie_pk):
         serializer = MovieSerializer(movie)
         return Response(serializer.data)
     
-    elif request.method == 'DELETE':
-        movie.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-    elif request.method == 'PUT':
-        serializer = MovieSerializer(movie, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
 
 @api_view(['POST'])
 @authentication_classes([JSONWebTokenAuthentication])
@@ -116,20 +107,24 @@ def comment_detail(request, comment_pk):
 
     else:
         if request.user == comment.user:
-            request.data["movie"] = rating.movie.id
-            request.data["user"] = request.user.id
             if request.method == 'DELETE':
                 comment.delete()
-                return Response({"message": "삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
+                data = {
+                    "message": "삭제되었습니다."
+                }
+                # print('==========================')
+                return Response(data, status=status.HTTP_204_NO_CONTENT)
 
             elif request.method == 'PUT':
                 serializer = CommentSerializer(comment, data=request.data)
                 if serializer.is_valid(raise_exception=True):
                     serializer.save()
                     return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
 
 
-@api_view(['GET', 'POST', 'DELETE', 'PUT'])
+@api_view(['GET', 'POST'])
 def comment_create(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     # movie = get_object_or_404(Movie, pk=movie_pk)
@@ -143,15 +138,3 @@ def comment_create(request, movie_pk):
             serializer.save(movie=movie, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    elif request.user == comment.user:
-            request.data["movie"] = rating.movie.id
-            request.data["user"] = request.user.id
-            if request.method == 'DELETE':
-                comment.delete()
-                return Response({"message": "삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
-
-            elif request.method == 'PUT':
-                serializer = CommentSerializer(comment, data=request.data)
-                if serializer.is_valid(raise_exception=True):
-                    serializer.save()
-                    return Response(serializer.data)

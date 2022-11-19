@@ -39,6 +39,6 @@ class Comment(models.Model):
     def username(self):
         return self.user.username
 
-    def __str__(self):
-        return f'{self.movie} | {self.score} | {self.comment}'
+    # def __str__(self):
+    #     return f'{self.movie} | {self.score} | {self.comment}'
 
