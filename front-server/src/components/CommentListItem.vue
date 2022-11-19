@@ -9,9 +9,9 @@
         v-model.trim="commentContent">
         <button type="submit" class="btn btn-primary" @click="updateComment">수정</button>
       </div>
+      <!-- 수정 X -->
       <div v-else>
-
-        <span>{{ comment.username }} - {{ comment.content }}</span>
+        <span>{{ comment.content }} - {{ comment.username }}</span>
         <button type="submit" class="btn btn-primary" @click="deleteComment">X</button>
         <button type="submit" class="btn btn-primary" @click="SwitchIsEditing">수정</button>
       </div>

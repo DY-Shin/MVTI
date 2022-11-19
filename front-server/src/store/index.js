@@ -46,10 +46,10 @@ export default new Vuex.Store({
     //   router.push({name: 'MovieView' })
     // },
 
-    CREATE_COMMENT(state, commentItem) {
-      state.comments = commentItem
-      console.log(commentItem)
-    },
+    // CREATE_COMMENT(state, commentItem) {
+    //   state.comments = commentItem
+    //   console.log(commentItem)
+    // },
 
     GET_COMMENTS(state, movieId) {
       axios({
@@ -62,16 +62,6 @@ export default new Vuex.Store({
       .catch(err => console.log(err))
     },
 
-    // DELETE_COMMENT(state, payload) {
-    //   axios({
-    //     method: 'delete',
-    //     url: `${API_URL}/api/v1/movies/${payload.movie_id}/comments/${payload.comment_id}`,
-    //   })
-    //   .then(() => {
-    //     state.comments.splice(payload.comment_id, 1)
-    //   })
-    //   .catch(err => console.log(err))
-    // },
   },
   actions: {
     getMovies(context){
