@@ -122,14 +122,14 @@ def comment_detail(request, comment_pk):
                 comment.delete()
                 return Response({"message": "삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
 
-        elif request.method == 'PUT':
-            serializer = CommentSerializer(comment, data=request.data)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
-                return Response(serializer.data)
+            elif request.method == 'PUT':
+                serializer = CommentSerializer(comment, data=request.data)
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save()
+                    return Response(serializer.data)
 
 
-@api_view(['GET','POST'])
+@api_view(['GET', 'POST', 'DELETE', 'PUT'])
 def comment_create(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     # movie = get_object_or_404(Movie, pk=movie_pk)
@@ -140,5 +140,18 @@ def comment_create(request, movie_pk):
     elif request.method == 'POST':
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(movie=movie)
+            serializer.save(movie=movie, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    elif request.user == comment.user:
+            request.data["movie"] = rating.movie.id
+            request.data["user"] = request.user.id
+            if request.method == 'DELETE':
+                comment.delete()
+                return Response({"message": "삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
+
+            elif request.method == 'PUT':
+                serializer = CommentSerializer(comment, data=request.data)
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save()
+                    return Response(serializer.data)

@@ -1,7 +1,8 @@
 <template>
   <div>
     <li>
-      {{ comment.content }}
+      <span>{{ comment.username }} - {{ comment.content }}</span>
+        
     </li>
   </div>
 </template>

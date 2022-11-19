@@ -47,6 +47,10 @@ export default {
     createComment() {
       const content = this.commentContent
       const movie_id = this.$route.params.id
+      const username = this.username
+
+      console.log(username)
+
       if (!content) {
         alert('내용을 입력해주세요')
         // return
@@ -57,7 +61,8 @@ export default {
         url: `${API_URL}/api/v1/movies/${this.$route.params.id}/comments/`,
         data: {
           content,
-          movie_id
+          movie_id,
+          username
         },
         headers: {
           Authorization: `Token ${this.$store.state.token}`
