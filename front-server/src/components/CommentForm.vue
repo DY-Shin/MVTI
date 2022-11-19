@@ -7,7 +7,7 @@
         id="comment"
         v-model.trim="commentContent"
         @keyup.enter="createComment">
-      <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+      <button type="submit" class="btn btn-primary" @click="createComment">Submit</button>
     </div>
   </div>
 </template>
@@ -38,25 +38,26 @@ export default {
         // console.log()
       } else {
         axios({
-          method: 'post',
-          url: `${API_URL}/api/v1/movies/${this.$route.params.id}/comments/`,
-          data: {
-            content
-          },
-          headers: {
-            Authorization: `Token ${this.$store.state.token}`
-          }
-        })
-          .then(() => {
-            // console.log(res)
-            const commentItem = {
-              content
-            }
-            this.$store.commit('CREATE_COMMENT', commentItem)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+        method: 'post',
+        url: `${API_URL}/api/v1/movies/${this.$route.params.id}/comments/`,
+        data: {
+          content
+        },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+      .then(() => {
+        // console.log(res)
+        const commentItem = {
+          content
+        }
+        this.$store.commit('CREATE_COMMENT', commentItem)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+        
       }
       this.commentContent = null
       // console.log(this.$route.params)
@@ -68,5 +69,4 @@ export default {
 </script>
 
 <style>
-
 </style>
