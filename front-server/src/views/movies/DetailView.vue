@@ -79,7 +79,7 @@ export default {
         // console.log(res)
         this.movie = res.data
         this.movieImgUrl = `https://themoviedb.org/t/p/w600_and_h900_bestv2${this.movie?.poster_path}`
-        this.backImgUrl = `https://image.tmdb.org/t/p/original${this.movie?.backdrop_path}`\
+        this.backImgUrl = `https://image.tmdb.org/t/p/original${this.movie?.backdrop_path}`
         this.videoUrl = `https://www.youtube.com/embed/${this.movie?.youtube_url}`
         this.actorsData = this.movie?.actors_data
         // console.log(this.actorsData)
