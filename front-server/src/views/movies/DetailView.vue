@@ -91,7 +91,7 @@ export default {
     getComments(){
       const movieId = this.$route.params.id
 
-      this.$store.commit('GET_COMMENTS', movieId)
+      this.$store.dispatch('get_comments', movieId)
     }
   }
 }
