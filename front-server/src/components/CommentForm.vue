@@ -1,18 +1,24 @@
 <template>
   <div>
     <p>{{ username }}님, 평점을 남겨보세요!</p>
-    <fieldset class="rating">
-      <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-      <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-      <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-      <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-      <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-      <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-      <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-      <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-      <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-      <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-    </fieldset>
+    <!-- <fieldset class="rating">
+      <input type="radio" id="star5" name="rating" value="5" v-model="movieScore"/><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+      <input type="radio" id="star4half" name="rating" value="4.5" v-model="movieScore"/><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+      <input type="radio" id="star4" name="rating" value="4" v-model="movieScore"/><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+      <input type="radio" id="star3half" name="rating" value="3.5" v-model="movieScore"/><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+      <input type="radio" id="star3" name="rating" value="3" v-model="movieScore"/><label class = "full" for="star3" title="Meh - 3 stars"></label>
+      <input type="radio" id="star2half" name="rating" value="2.5" v-model="movieScore"/><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+      <input type="radio" id="star2" name="rating" value="2" v-model="movieScore"/><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+      <input type="radio" id="star1half" name="rating" value="1.5" v-model="movieScore"/><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+      <input type="radio" id="star1" name="rating" value="1" v-model="movieScore"/><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+      <input type="radio" id="starhalf" name="rating" value="0.5" v-model="movieScore"/><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+    </fieldset> -->
+    <!-- <h2>Glowing Stars</h2> -->
+    <div style="background:#000;padding-bottom:10px;">
+    
+      <star-rating :glow="10" :rounded-corners="true" v-model="movieScore"
+        :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+    </div>
     <br>
     <div>
       <input 
@@ -27,7 +33,7 @@
 
 <script>
 import axios from 'axios'
-// @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+import StarRating from 'vue-star-rating'
 
 const API_URL = "http://127.0.0.1:8000"
 
@@ -35,8 +41,12 @@ export default {
   name: 'CommentForm',
   data() {
     return {
+      movieScore: 0,
       commentContent: null,
     }
+  },
+  components: {
+    StarRating
   },
   computed: {
     username() {
@@ -48,9 +58,11 @@ export default {
       const content = this.commentContent
       const movie_id = this.$route.params.id
       const username = this.username
+      const score = this.movieScore
 
-      console.log(username)
-
+      // console.log(username)
+      // console.log(score)
+      
       if (!content) {
         alert('내용을 입력해주세요')
         // return
@@ -62,7 +74,8 @@ export default {
         data: {
           content,
           movie_id,
-          username
+          username,
+          score,
         },
         headers: {
           Authorization: `Token ${this.$store.state.token}`
@@ -70,7 +83,7 @@ export default {
       })
       .then(() => {
         // console.log(res)
-        this.$store.commit('GET_COMMENTS', movie_id)
+        this.$store.dispatch('get_comments', movie_id)
       })
       .catch((err) => {
         console.log(err)
@@ -78,6 +91,7 @@ export default {
         
       }
       this.commentContent = null
+      // this.score = null
       // console.log(this.$route.params)     
     }
   },
@@ -86,44 +100,18 @@ export default {
 
 <style>
 
-fieldset, label { margin: 0; padding: 0; }
-body{ margin: 20px; }
-h1 { font-size: 1.5em; margin: 10px; }
-
-/****** Style Star Rating Widget *****/
-
-.rating { 
-  border: none;
-  float: left;
+body {
+  font-family: 'Raleway', sans-serif;
 }
 
-.rating > input { display: none; } 
-.rating > label:before { 
-  margin: 5px;
-  font-size: 1.25em;
-  font-family: FontAwesome;
-  display: inline-block;
-  content: "\f005";
+.custom-text {
+  font-weight: bold;
+  font-size: 1.9em;
+  border: 1px solid #cfcfcf;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  color: #999;
+  background: #fff;
 }
-
-.rating > .half:before { 
-  content: "\f089";
-  position: absolute;
-}
-
-.rating > label { 
-  color: #ddd; 
- float: right; 
-}
-
-/***** CSS Magic to Highlight Stars on Hover *****/
-
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
-
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
 </style>

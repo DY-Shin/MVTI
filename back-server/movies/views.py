@@ -129,7 +129,8 @@ def comment_create(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     # movie = get_object_or_404(Movie, pk=movie_pk)
     if request.method == 'GET':
-        serializer = MovieSerializer(movie)
+        comments = movie.comment_set.all()
+        serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':

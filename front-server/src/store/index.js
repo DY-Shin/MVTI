@@ -14,6 +14,8 @@ export default new Vuex.Store({
     token: null,
     username: null,
     comments: null,
+    allcomments: null,
+    usercomments: null,
   },
   plugins: [
     createPersistedState(),
@@ -21,6 +23,13 @@ export default new Vuex.Store({
   getters: {
     isLogin(state) {
       return state.token ? true : false
+    },
+    user_comment(state) {
+      state.usercomments = state.allcomments.filter((comment) => {
+        if (comment.username === state.username) {
+          return comment
+        }
+      })
     }
   },
   mutations: {
@@ -51,15 +60,14 @@ export default new Vuex.Store({
     //   console.log(commentItem)
     // },
 
-    GET_COMMENTS(state, movieId) {
-      axios({
-        method: 'get',
-        url: `${API_URL}/api/v1/movies/${movieId}/comments/`,
-      })
-      .then((res) => {
-        state.comments = res.data.comment_set
-      })
-      .catch(err => console.log(err))
+    
+    GET_COMMENTS(state, data) {
+      // console.log(data)
+      state.comments = data
+    },
+
+    GET_ALL_COMMENTS(state, data) {
+      state.allcomments = data
     },
 
   },
@@ -124,26 +132,33 @@ export default new Vuex.Store({
         alert('다시 시도해주세요!')
       })
     },
+
+    get_comments(context, movieId) {
+      console.log(movieId);
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/movies/${movieId}/comments/`,
+      })
+      .then((res) => {
+        // console.log(res);
+        context.commit('GET_COMMENTS', res.data)
+        
+      })
+      .catch(err => console.log(err))
+    },
+
+    get_all_comments(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/comments/`,
+      })
+      .then((res) => {
+        context.commit('GET_ALL_COMMENTS', res.data)
+        // console.log(res)
+      })
+      .catch(err => console.log(err))
+    },
   
-    // createComment(context, commentContent) {
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/movies/${this.movie_pk}/`,
-    //     data: {
-    //       content: commentContent,
-    //     }
-    //   })
-    //   .then(() => {
-    //     // console.log(res)
-    //     const commentItem = {
-    //       content : commentContent.content
-    //     }
-    //     context.commit('CREATE_COMMENT', commentItem)
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
-    // }
   },
   modules: {
   }

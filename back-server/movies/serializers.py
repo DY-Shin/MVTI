@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Movie, Comment
+from django.contrib.auth import get_user_model
 
 
 class MovieListSerializer(serializers.ModelSerializer):
@@ -16,9 +17,11 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = '__all__'
-        read_only_fields = ('movie', 'username')
-        extra_kwargs = {'user': {'required': False}}
+        fields = ('pk', 'username', 'movie', 'content', 'score')
+        read_only_fields = ('movie', 'username', 'user')
+        # extra_kwargs = {'user': {'required': False}}
+
+    
 
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -31,5 +34,17 @@ class MovieSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('user', 'like_user')
 
+
+# class CommentListSerializer(serializers.ModelSerializer):
+#     class UserSerializer(serializers.ModelSerializer):
+#         class Meta:
+#             model = get_user_model()
+#             fields = ('pk', 'username')
+    
+#     user = UserSerializer(read_only=True)
+
+#     class Meta:
+#         model = Comment
+#         fields = ('pk', 'content', 'user', 'created_at', 'updated_at', 'movie', 'score')
 
 

@@ -22,7 +22,6 @@ class Movie(models.Model):
     backdrop_path = models.CharField(max_length=500)
     adult = models.BooleanField()
     genres = models.ManyToManyField(Genre)
-    youtube_url = models.CharField(max_length=500)
     # actors_data = models.CharField(max_length=500)
     actors_data = models.JSONField(default='{}')
     like_user = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
@@ -32,11 +31,11 @@ class Movie(models.Model):
 
 class Comment(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # score = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    score = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     def username(self):
         return self.user.username
