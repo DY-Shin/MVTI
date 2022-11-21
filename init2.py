@@ -1,7 +1,7 @@
 import requests
 import json
 
-TMDB_API_KEY = 'db810f1ce85d6d911d7c5d0b9f259284'
+TMDB_API_KEY = '5409f4c3910231c41d381e6b518db90a'
 # https://api.themoviedb.org/3/movie/popular?api_key=db810f1ce85d6d911d7c5d0b9f259284&language=ko-KR&page=1
 # https://api.themoviedb.org/3/movie/436270/videos?api_key=db810f1ce85d6d911d7c5d0b9f259284language=en-US
 def get_movie_datas():

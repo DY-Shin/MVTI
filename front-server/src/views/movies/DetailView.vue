@@ -1,7 +1,7 @@
 <template>
   <div 
     :style="{ backgroundImage : `url(${backImgUrl})`}"
-    style="background-size: cover; height: 100vh; width: 99.1vw;"
+    style="background-size: cover; height: 100vh; width: 99.1vw; overflow: auto;"
   >
     <div class="d-flex flex-row justify-content-evenly">
       <!-- <h1>Detail</h1> -->
@@ -17,12 +17,21 @@
             <p>평점 : {{ movie?.vote_avg }}</p>
             <p>개봉일 : {{ movie?.released_date }}</p>
             <p>내용 : {{ movie?.overview }}</p>
+            <iframe :src="videoUrl" frameborder="0" width="500" height="300"></iframe>
           </div>
+        </div>
+        <div id="actors" class="d-flex justify-content-start">
+          <ActorsList
+            v-for="(actor, idx) in actorsData"
+            :key="idx"
+            :actor="actor"
+          />
+          <!-- <p>{{ actorsData }}</p> -->
         </div>
       </div>
     </div>
     <template v-if="isLogin">
-      <div id="comment" style="width: 30rem; margin: auto;">
+      <div id="comment" style="width: 30rem; margin: auto;" class="mt-5">
         <CommentList/>
       </div>
     </template>
@@ -31,26 +40,30 @@
 
 <script>
 import axios from 'axios'
-// import CommentForm from '@/components/CommentForm.vue'
 import CommentList from '@/components/CommentList.vue'
+import ActorsList from '@/components/ActorsList.vue'
+
 const API_URL = "http://127.0.0.1:8000"
 
 export default {
   name: 'DetailView',
   components: {
-    CommentList
+    CommentList,
+    ActorsList,
   },
   data() {
     return{
       movie: null,
       movieImgUrl: null,
       backImgUrl: null,
+      videoUrl: null,
+      actorsData: null,
     }
   },
   computed: {
     isLogin() {
       return this.$store.getters.isLogin
-    }
+    },
   },
   created() {
     this.getMovieDetail()
@@ -67,6 +80,9 @@ export default {
         this.movie = res.data
         this.movieImgUrl = `https://themoviedb.org/t/p/w600_and_h900_bestv2${this.movie?.poster_path}`
         this.backImgUrl = `https://image.tmdb.org/t/p/original${this.movie?.backdrop_path}`
+        this.videoUrl = `https://www.youtube.com/embed/${this.movie?.youtube_url}`
+        this.actorsData = this.movie?.actors_data
+        // console.log(this.actorsData)
       })
       .catch(err => console.log(err))
     },
@@ -85,8 +101,12 @@ export default {
   #body {
     background-color: rgba( 255, 255, 255, 0.7 );
     color: black;
+    background-size: cover;
   }
   #comment {
+    background-color: white;
+  }
+  #actors{
     background-color: white;
   }
 </style>

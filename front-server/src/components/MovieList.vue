@@ -54,6 +54,7 @@ export default {
 .movie-list {
   text-align: start;
   color: white;
+  background-color: black;
 }
 .swiper-container {
   .swiper-wrapper {

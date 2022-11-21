@@ -22,7 +22,9 @@ class Movie(models.Model):
     backdrop_path = models.CharField(max_length=500)
     adult = models.BooleanField()
     genres = models.ManyToManyField(Genre)
-    actors_data = models.CharField(max_length=500)
+    youtube_url = models.CharField(max_length=500)
+    # actors_data = models.CharField(max_length=500)
+    actors_data = models.JSONField(default='{}')
     like_user = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
   
     def __str__(self):
