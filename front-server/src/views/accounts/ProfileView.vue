@@ -21,9 +21,6 @@ import UserComment from '@/components/UserComment'
 
 export default {
   name: 'ProfileView',
-  // props: {
-  //   username: Object,
-  // },
   components: {
     UserComment
   },

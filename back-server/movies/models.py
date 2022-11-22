@@ -22,6 +22,7 @@ class Movie(models.Model):
     backdrop_path = models.CharField(max_length=500)
     adult = models.BooleanField()
     genres = models.ManyToManyField(Genre)
+    youtube_url = models.CharField(max_length=500)
     # actors_data = models.CharField(max_length=500)
     actors_data = models.JSONField(default='{}')
     like_user = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
@@ -43,3 +44,10 @@ class Comment(models.Model):
     # def __str__(self):
     #     return f'{self.movie} | {self.score} | {self.comment}'
 
+class Mvti(models.Model):
+    name = models.CharField(max_length=100)
+    genre1 = models.IntegerField()
+    genre2 = models.IntegerField()
+    genre3 = models.IntegerField()
+    genre4 = models.IntegerField()
+    genre5 = models.IntegerField()

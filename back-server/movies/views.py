@@ -11,8 +11,8 @@ from rest_framework.permissions import IsAuthenticated
 
 from rest_framework import status
 from django.shortcuts import get_object_or_404, get_list_or_404
-from .serializers import MovieListSerializer, MovieSerializer, CommentSerializer
-from .models import Movie, Comment
+from .serializers import MovieListSerializer, MovieSerializer, CommentSerializer, MvtiSerializer
+from .models import Movie, Comment, Mvti
 
 
 
@@ -138,4 +138,11 @@ def comment_create(request, movie_pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save(movie=movie, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def mvti(request, mvti_pk):
+    if request.method == 'GET':
+        mvti = Mvti.objects.get(pk=mvti_pk)
+        serializer = MvtiSerializer(mvti)
+        return Response(serializer.data)
 

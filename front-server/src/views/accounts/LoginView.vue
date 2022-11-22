@@ -20,6 +20,7 @@
         <button type="submit" class="btn btn-primary">로그인</button>
       </div>
     </form>
+    <span>회원이 아니신가요? <router-link :to="{ name: 'SignupView' }">회원가입하기</router-link></span>
   </div>
 </template>
 

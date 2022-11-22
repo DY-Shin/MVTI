@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ comment.movie }} | {{ comment.score }} {{ comment.content }} - {{ comment.username }}
+    {{ comment.moviename }} | {{ comment.movie }} | {{ comment.score }} {{ comment.content }} - {{ comment.username }}
     <!-- <button @click="getUserComment"></button> -->
   </div>
 </template>

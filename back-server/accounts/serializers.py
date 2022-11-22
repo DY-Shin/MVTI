@@ -6,7 +6,9 @@ from movies.models import Comment
 from .models import User
 
 class CustomRegisterSerializer(RegisterSerializer):
-    pass
+    class Meta:
+        model = User
+        read_only_fields = ('mvti',)
     # level = serializers.CharField(max_length=100)
 
     # def get_cleaned_data(self):
