@@ -85,6 +85,7 @@ export default new Vuex.Store({
 
     GET_USER_COMMENTS(state) {
       state.usercomments = state.allcomments.filter((comment) => {
+        console.log(state.usercomments);
         if (comment.username === state.username) {
           return comment
         }
@@ -250,6 +251,11 @@ export default new Vuex.Store({
       })
       .catch(err => console.log(err))
     },
+
+    get_user_comments(context) {
+      context.commit('GET_USER_COMMENTS')
+    },
+
     get_result(context) {
       context.commit('GET_RESULT')
     }

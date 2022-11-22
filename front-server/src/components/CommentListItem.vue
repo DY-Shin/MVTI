@@ -14,10 +14,67 @@
         <button type="submit" class="btn btn-primary" @click="updateComment">수정</button>
       </div>
       <!-- 수정 X -->
-      <div v-else>
+      <div class="commentItem" v-else>
+        <span id="start">
+          <span v-if="comment.score === 5">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+          </span>
+        
+          <span v-else-if="comment.score === 4.5">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+              class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+          </span>
+        
+          <span v-else-if="comment.score === 4">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+              class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+          </span>
+        
+          <span v-else-if="comment.score === 3.5">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+              class="bi bi-star-half"></i><i class="bi bi-star"></i>
+          </span>
+        
+          <span v-else-if="comment.score === 3">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+              class="bi bi-star"></i><i class="bi bi-star"></i>
+          </span>
+        
+          <span v-else-if="comment.score === 2.5">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i
+              class="bi bi-star"></i><i class="bi bi-star"></i>
+          </span>
+        
+          <span v-else-if="comment.score === 2">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i
+              class="bi bi-star"></i>
+          </span>
+        
+          <span v-else-if="comment.score === 1.5">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i
+              class="bi bi-star"></i>
+          </span>
+        
+          <span v-else-if="comment.score === 1">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i
+              class="bi bi-star"></i>
+          </span>
+        
+          <span v-else-if="comment.score === 0.5">
+            <i class="bi bi-star-half"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i
+              class="bi bi-star"></i>
+          </span>
+        
+          <span v-else>
+            <i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i
+              class="bi bi-star"></i>
+          </span>
+        </span>
         <span>{{ comment.content }}</span>
-        <span>{{ comment.score }}</span>
         <b>{{ comment.username }}</b>
+      </div>
+      <div class="d-flex flex-wrap-reverse">
         <button type="submit" class="btn btn-primary" @click="deleteComment">X</button>
         <button type="submit" class="btn btn-primary" @click="SwitchIsEditing">수정</button>
       </div>
@@ -113,5 +170,8 @@ export default {
 </script>
 
 <style>
-
+  .commentItem {
+    display: flex;
+    justify-content: space-between;
+  }
 </style>
