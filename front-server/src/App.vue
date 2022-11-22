@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg bg-dark">
+    <nav class="navbar navbar-expand-lg bg-dark fixed-top">
       <div class="container-fluid">
         <router-link class="navbar-brand" :to="{ name: 'MovieView' }">
           <img src="@/assets/MVTI.png" alt="#" width="100px">
@@ -65,15 +65,24 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family:'SeoulNamsanB';
+  src: url('@/fonts/SeoulNamsanB.ttf');
+  /* font-weight: 400; */
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+  font-family: 'SeoulNamsanB';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   background-color: black;
-  min-height: 961px;
+  padding-top: 5.4rem;
+  min-height: 969px;
 }
+
 
 
 nav {

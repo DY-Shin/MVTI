@@ -7,7 +7,7 @@
         type="text" 
         id="comment"
         v-model.trim="commentContent">
-        <div style="background:#000;padding-bottom:10px;">
+        <div style="background:#000; padding-bottom:10px;">
     
           <star-rating :glow="10" :rounded-corners="true" v-model="movieScore1" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
         </div>
@@ -74,7 +74,7 @@
         <span>{{ comment.content }}</span>
         <b>{{ comment.username }}</b>
       </div>
-      <div class="d-flex flex-wrap-reverse">
+      <div class="d-flex justify-content-end">
         <button type="submit" class="btn btn-primary" @click="deleteComment">X</button>
         <button type="submit" class="btn btn-primary" @click="SwitchIsEditing">수정</button>
       </div>

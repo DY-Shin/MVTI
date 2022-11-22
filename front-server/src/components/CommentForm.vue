@@ -14,7 +14,7 @@
       <input type="radio" id="starhalf" name="rating" value="0.5" v-model="movieScore"/><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
     </fieldset> -->
     <!-- <h2>Glowing Stars</h2> -->
-    <div style="background:#000;padding-bottom:10px;">
+    <div style="background:#000; padding-bottom:10px;" class="d-flex justify-content-center">
     
       <star-rating :glow="10" :rounded-corners="true" v-model="movieScore"
         :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
@@ -26,7 +26,7 @@
         id="comment"
         v-model.trim="commentContent"
         @keyup.enter="createComment">
-      <button type="submit" class="btn btn-primary" @click="createComment">Submit</button>
+      <button type="submit" class="btn btn-primary ms-2" @click="createComment">Submit</button>
     </div>
   </div>
 </template>

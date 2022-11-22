@@ -1,5 +1,27 @@
 <template>
   <div class="movie-list text-center">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+      <!-- <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div> -->
+      <div class="carousel-inner">
+        <CarouselItem
+          v-for="movie in movies.slice(0, 3)"
+          :key="movie.id"
+          :movie="movie"
+        />
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
     <h1>Movie List</h1>
     <swiper 
       ref="filterSwiper" 
@@ -18,13 +40,17 @@
 </template>
 <script>
 import MovieListItem from '@/components/MovieListItem'
+import CarouselItem from '@/components/CarouselItem'
+// import _ from 'lodash'
 import { swiper } from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.min.css'
+
 export default {
   name: 'MovieList',
   components: {
     MovieListItem,
     swiper,
+    CarouselItem,
   },
   data () {
     return {
@@ -46,7 +72,10 @@ export default {
   computed: {
     movies() {
       return this.$store.state.movies
-    }
+    },
+    // sampleMovies(){
+    //   return _.sample(this.$store.state.movies, 3)
+    // }
   }
 }
 </script>
@@ -56,6 +85,7 @@ export default {
   color: white;
   background-color: black;
 }
+
 .swiper-container {
   .swiper-wrapper {
     .swiper-slide {

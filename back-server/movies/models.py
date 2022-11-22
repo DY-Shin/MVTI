@@ -24,7 +24,7 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre)
     youtube_url = models.CharField(max_length=500)
     # actors_data = models.CharField(max_length=500)
-    actors_data = models.JSONField(default='{}')
+    actors_data = models.JSONField(default=dict)
     like_user = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
   
     def __str__(self):

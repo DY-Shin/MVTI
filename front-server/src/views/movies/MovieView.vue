@@ -7,6 +7,7 @@
 
 <script>
 import MovieList from '@/components/MovieList'
+
 export default {
   name: 'MovieView',
   components: {

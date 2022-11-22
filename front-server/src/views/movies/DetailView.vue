@@ -1,7 +1,7 @@
 <template>
   <div 
     :style="{ backgroundImage : `url(${backImgUrl})`}"
-    style="background-size: cover; height: 100vh; width: 99.1vw; overflow: auto;"
+    style="background-size: cover; overflow: auto; background-attachment: fixed;"
   >
     <div class="d-flex flex-row justify-content-evenly">
       <!-- <h1>Detail</h1> -->
@@ -20,18 +20,28 @@
             <iframe :src="videoUrl" frameborder="0" width="500" height="300"></iframe>
           </div>
         </div>
-        <div id="actors" class="d-flex justify-content-start">
-          <ActorsList
-            v-for="(actor, idx) in actorsData"
-            :key="idx"
-            :actor="actor"
-          />
-          <!-- <p>{{ actorsData }}</p> -->
+        <div id="actorCard" class="text-align-center mt-3">
+          <br>
+          <h5><b>출연진</b></h5>
+          <hr>
+          <swiper 
+            ref="filterSwiper" 
+            :options="swiperOption" 
+            role="tablist"
+          >
+            <ActorsList
+              v-for="(actor, idx) in actorsData"
+              :key="idx"
+              :actor="actor"
+            />
+            <div class="swiper-button-prev" slot="button-prev"></div>
+            <div class="swiper-button-next" slot="button-next"></div>
+          </swiper>
         </div>
       </div>
     </div>
     <template v-if="isLogin">
-      <div id="comment" style="width: 30rem; margin: auto;" class="mt-5">
+      <div id="comment" style="width: 30rem; margin: 0 auto; background-color: black; color: white; justify-content-center" class="mt-5">
         <CommentList/>
       </div>
     </template>
@@ -42,6 +52,8 @@
 import axios from 'axios'
 import CommentList from '@/components/CommentList.vue'
 import ActorsList from '@/components/ActorsList.vue'
+import { swiper } from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.min.css'
 
 const API_URL = "http://127.0.0.1:8000"
 
@@ -50,6 +62,7 @@ export default {
   components: {
     CommentList,
     ActorsList,
+    swiper,
   },
   data() {
     return{
@@ -58,6 +71,19 @@ export default {
       backImgUrl: null,
       videoUrl: null,
       actorsData: null,
+      swiperOption: {
+        slidesPerView: 7,
+        slidesPerGroup: 3,
+        spaceBetween: 6, // swiper-slide 사이의 간격 지정
+        slidesOffsetBefore: 0, // slidesOffsetBefore는 첫번째 슬라이드의 시작점에 대한 변경할 때 사용
+        slidesOffsetAfter: 0, // slidesOffsetAfter는 마지막 슬라이드 시작점 + 마지막 슬라이드 너비에 해당하는 위치의 변경이 필요할 때 사용
+        freeMode: true, // freeMode를 사용시 스크롤하는 느낌으로 구현 가능
+        centerInsufficientSlides: true, // 컨텐츠의 수량에 따라 중앙정렬 여부를 결정함
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      },
     }
   },
   computed: {
@@ -106,7 +132,29 @@ export default {
   #comment {
     background-color: white;
   }
-  #actors{
-    background-color: white;
+  #actorCard{
+    background-color: rgba( 255, 255, 255, 0.7 );
+    color: black;
+  }
+</style>
+
+<style lang="scss" scoped>
+  .swiper-container {
+    .swiper-wrapper {
+      .swiper-slide {
+        width: 'auto'; // auto 값을 지정해야 슬라이드의 width값이 텍스트 길이 기준으로 바뀜
+        min-width: 56px; // min-width를 지정하지 않을 경우 텍스트가 1개 내지는 2개가 들어갈 때 탭 모양이 상이할 수 있으므로 넣어준다.
+        padding: 0px;
+        font-size: 14px;
+        line-height: 36px;
+        text-align: center;
+        color: #84868c;
+        border: 0;
+        border-radius: 18px;
+        // background: #f3f4f7;
+        appearance: none;
+        // cursor: pointer;
+      }
+    }
   }
 </style>

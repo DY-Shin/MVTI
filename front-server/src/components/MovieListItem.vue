@@ -10,7 +10,7 @@
         <img :src="imgUrl" alt="img">
         <div id="card-body">
           <!-- <h5>{{ movie.id }}</h5> -->
-          <h4>{{ movie.title }}</h4>
+          <h4><b>{{ movie.title }}</b></h4>
         </div>
       </div>
     </router-link>
