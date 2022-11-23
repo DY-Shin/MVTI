@@ -8,7 +8,6 @@
         id="comment"
         v-model.trim="commentContent">
         <div style="background:#000; padding-bottom:10px;">
-    
           <star-rating :glow="10" :rounded-corners="true" v-model="movieScore1" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
         </div>
         <button type="submit" class="btn btn-primary" @click="updateComment">수정</button>
@@ -16,6 +15,8 @@
       <!-- 수정 X -->
       <div class="commentItem" v-else>
         <span id="start">
+        <b>{{ comment.username }}</b>
+        <span> - </span>
           <span v-if="comment.score === 5">
             <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
               class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
@@ -71,12 +72,13 @@
               class="bi bi-star"></i>
           </span>
         </span>
-        <span>{{ comment.content }}</span>
-        <b>{{ comment.username }}</b>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary" @click="deleteComment">X</button>
+          <button type="submit" class="btn btn-primary" @click="SwitchIsEditing">수정</button>
+        </div>
       </div>
-      <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary" @click="deleteComment">X</button>
-        <button type="submit" class="btn btn-primary" @click="SwitchIsEditing">수정</button>
+      <div class="d-flex justify-content-start">
+        <p>{{ comment.content }}</p>
       </div>
     </li>
   </div>

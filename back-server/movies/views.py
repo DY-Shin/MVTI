@@ -10,10 +10,10 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 from rest_framework import status
-from django.shortcuts import get_object_or_404, get_list_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404, redirect
 from .serializers import MovieListSerializer, MovieSerializer, CommentSerializer, MvtiSerializer
 from .models import Movie, Comment, Mvti
-
+from random import sample
 
 
 @api_view(['GET', 'POST'])
@@ -146,3 +146,31 @@ def mvti(request, mvti_pk):
         serializer = MvtiSerializer(mvti)
         return Response(serializer.data)
 
+@api_view(['GET'])
+def recommended(request, mvti_pk):
+    if request.method == 'GET':
+        movies = get_list_or_404(Movie)
+        # user = request.user
+        mvti = Mvti.objects.get(pk=mvti_pk)
+        if request.user.is_authenticated:
+            my_genres = [
+                mvti.genre1,
+                mvti.genre2,
+                mvti.genre3,
+                mvti.genre4,
+                mvti.genre5,
+                ]    
+            recommendations_list = set()
+            for movie in movies:
+                genres = movie.genres.all()
+                for genre in genres:
+                    if genre.pk in my_genres:
+                        recommendations_list.add(movie)
+            recommendations = sample(list(recommendations_list), 20)
+            serializer = MovieSerializer(recommendations, many=True)
+            return Response(serializer.data)
+        else:
+            movies = get_list_or_404(Movie)
+            recommendations = sample(movies, 10)
+            serializer = MovieSerializer(recommendations, many=True)
+            return Response(serializer.data)

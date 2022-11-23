@@ -11,12 +11,14 @@
         </div>
       </div>
       <div class="col-7">
-        <div class="card mt-5" id="body">
+        <div class="card mt-5 text-start" id="body">
           <div class="card-body">
-            <h5 class="card-header"><b>{{ movie?.title }}</b></h5>
-            <p>평점 : {{ movie?.vote_avg }}</p>
-            <p>개봉일 : {{ movie?.released_date }}</p>
-            <p>내용 : {{ movie?.overview }}</p>
+            <h1 class="card-header"><b>{{ movie?.title }}</b></h1>
+            <h5><b>{{ movie?.released_date }} | {{ movie?.vote_avg }}</b></h5>
+            <!-- <p>{{ movie?.genres }}</p> -->
+            <h3><b>개요</b></h3>
+            <p>{{ movie?.overview }}</p>
+            <h3><b>티저 영상</b></h3>
             <iframe :src="videoUrl" frameborder="0" width="500" height="300"></iframe>
           </div>
         </div>

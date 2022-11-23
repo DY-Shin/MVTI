@@ -7,8 +7,16 @@
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div> -->
       <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="@/assets/banner.jpg" class="d-block w-50 mx-auto" alt="...">
+          <!-- <div class="carousel-caption d-none d-md-block w-50 mx-auto">
+            <h2>1</h2>
+            <br>
+            <p>2</p>
+          </div> -->
+        </div>
         <CarouselItem
-          v-for="movie in movies.slice(0, 3)"
+          v-for="movie in sampleMovies"
           :key="movie.id"
           :movie="movie"
         />
@@ -41,7 +49,7 @@
 <script>
 import MovieListItem from '@/components/MovieListItem'
 import CarouselItem from '@/components/CarouselItem'
-// import _ from 'lodash'
+import _ from 'lodash'
 import { swiper } from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.min.css'
 
@@ -73,9 +81,9 @@ export default {
     movies() {
       return this.$store.state.movies
     },
-    // sampleMovies(){
-    //   return _.sample(this.$store.state.movies, 3)
-    // }
+    sampleMovies(){
+      return _.sampleSize(this.$store.state.movies, 5)
+    }
   }
 }
 </script>

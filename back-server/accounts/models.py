@@ -5,5 +5,4 @@ from movies.models import Mvti
 
 # Create your models here.
 class User(AbstractUser):
-    # mvti = models.ForeignKey(Mvti, on_delete=models.CASCADE)
-    pass
+    mvti = models.ForeignKey(Mvti, on_delete=models.CASCADE, null=True)

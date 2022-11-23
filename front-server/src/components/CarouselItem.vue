@@ -1,10 +1,20 @@
 <template>
-  <div class="carousel-item active">
-    <img :src="imgUrl" class="d-block w-100" alt="...">
-    <div class="carousel-caption d-none d-md-block">
-      <h5>{{this.movie.title}}</h5>
-      <p>내용</p>
-    </div>
+  <div class="carousel-item">
+    <router-link
+      :to="{
+        name: 'DetailView',
+        params: { id: movie.id }
+      }"  
+    >
+      <img :src="imgUrl" class="d-block w-50 mx-auto" alt="...">
+      <div class="carousel-caption d-none d-md-block w-50 mx-auto">
+        <div id="title" class="d-inline-flex">
+          <h2><b>{{ this.movie.title }}</b></h2>
+        </div>
+        <!-- <br>
+        <p>{{ this.movie.overview }}</p> -->
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -42,5 +52,8 @@ export default {
 </script>
 
 <style>
-
+/* #title{
+  -webkit-text-stroke-width: 0.2px;
+  -webkit-text-stroke-color: black;
+} */
 </style>

@@ -60,6 +60,7 @@ export default {
   //   })
   //     .then(res => {
   //       this.profile = res.data
+  //       console.log(this.profile);
   //     })
   //     .catch(err => console.error(err))
   // },
