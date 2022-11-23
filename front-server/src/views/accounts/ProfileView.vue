@@ -1,0 +1,92 @@
+<template>
+  <div id="profile">
+    <br>
+    
+    <h3><img src="@/assets/dia.gif" alt="img" width="80px">{{ username }}님의 프로필<img src="@/assets/dia.gif" alt="img" width="80px"></h3>
+    <div class="fw-bold text-center text-white my-5">
+        <h4>코멘트 {{ usercomments.length }}개</h4>
+        <!-- <h4>찜한 영화 {{ profile.pick_movies.length }}개</h4> -->
+        <!-- <h4>좋아요한 영화 {{ like_movies.length }}개</h4> -->
+    </div>
+    <div v-if="mvti_pk">
+      <h5>당신의 유형은 🎬{{ name }}🎬</h5> 
+      <router-link :to="{ name: 'survey1' }"><h5>다시 검사하러가기</h5></router-link>
+    </div>
+    <div v-else>
+      <h5>아직 MVTI 검사를 하지 않으셨군요!</h5>
+      <router-link :to="{ name: 'survey1' }"><h5>MVTI 검사하고 나에게 맞는 영화 추천받기</h5></router-link>
+    </div>
+    <hr>
+    <div class="my-5">
+      <h5><img src="@/assets/heartviolet.gif" alt="img" width="30px">{{ username }}님이 좋아한 영화<img src="@/assets/heartviolet.gif" alt="img" width="30px"></h5>
+    </div>
+    <hr>
+    <div class="my-5">
+      <h5><img src="@/assets/heart.gif" alt="img" width="30px">{{ username }}님이 남긴 리뷰<img src="@/assets/heart.gif" alt="img" width="30px"></h5>
+      <br>
+      <UserComment/>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+import UserComment from '@/components/UserComment'
+const API_URL = "http://127.0.0.1:8000"
+
+export default {
+  name: 'ProfileView',
+  components: {
+    UserComment
+  },
+  computed: {
+    username() {
+      return this.$store.state.username
+    },
+    usercomments() {
+      return this.$store.state.usercomments
+    },
+    mvti_pk() {
+      return this.$store.state.resultmvti
+    },
+  },
+  data: function () {
+    return {
+      comment: null,
+      name: null,
+    }
+  },
+  methods: {
+    get_mvti() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/movies/mvti/${this.mvti_pk}`
+      })
+      .then((res) => {
+        this.pk = this.mvti_pk
+        this.name = res.data.name
+        this.genre1 = res.data.genre1
+        this.genre2 = res.data.genre2
+        this.genre3 = res.data.genre3
+        this.genre4 = res.data.genre4
+        this.genre5 = res.data.genre5
+        // this.put_mvti()
+        
+        // console.log(this.pk);
+        // console.log(this.imgUrl);
+      })
+      .catch((err) => console.log(err))
+    },
+  },
+  
+  created() {
+    this.get_mvti()
+  },
+}
+</script>
+
+<style>
+  #profile{
+    color: white;
+  }
+</style>

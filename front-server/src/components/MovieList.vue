@@ -1,0 +1,115 @@
+<template>
+  <div class="movie-list text-center">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+      <!-- <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div> -->
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="@/assets/banner.jpg" class="d-block w-50 mx-auto" alt="...">
+          <!-- <div class="carousel-caption d-none d-md-block w-50 mx-auto">
+            <h2>1</h2>
+            <br>
+            <p>2</p>
+          </div> -->
+        </div>
+        <CarouselItem
+          v-for="movie in sampleMovies"
+          :key="movie.id"
+          :movie="movie"
+        />
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <h1>Movie List</h1>
+    <swiper 
+      ref="filterSwiper" 
+      :options="swiperOption" 
+      role="tablist"
+    >
+      <MovieListItem
+        v-for="movie in movies"
+        :key="movie.id"
+        :movie="movie"
+      />
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
+  </div>
+</template>
+<script>
+import MovieListItem from '@/components/MovieListItem'
+import CarouselItem from '@/components/CarouselItem'
+import _ from 'lodash'
+import { swiper } from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.min.css'
+
+export default {
+  name: 'MovieList',
+  components: {
+    MovieListItem,
+    swiper,
+    CarouselItem,
+  },
+  data () {
+    return {
+      swiperOption: {
+        slidesPerView: 'auto',
+        slidesPerGroup: 4,
+        spaceBetween: 6, // swiper-slide 사이의 간격 지정
+        slidesOffsetBefore: 0, // slidesOffsetBefore는 첫번째 슬라이드의 시작점에 대한 변경할 때 사용
+        slidesOffsetAfter: 0, // slidesOffsetAfter는 마지막 슬라이드 시작점 + 마지막 슬라이드 너비에 해당하는 위치의 변경이 필요할 때 사용
+        freeMode: true, // freeMode를 사용시 스크롤하는 느낌으로 구현 가능
+        centerInsufficientSlides: true, // 컨텐츠의 수량에 따라 중앙정렬 여부를 결정함
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      }
+    }
+  },
+  computed: {
+    movies() {
+      return this.$store.state.movies
+    },
+    sampleMovies(){
+      return _.sampleSize(this.$store.state.movies, 5)
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+.movie-list {
+  text-align: start;
+  color: white;
+  background-color: black;
+}
+
+.swiper-container {
+  .swiper-wrapper {
+    .swiper-slide {
+      width: 300px; // auto 값을 지정해야 슬라이드의 width값이 텍스트 길이 기준으로 바뀜
+      min-width: 56px; // min-width를 지정하지 않을 경우 텍스트가 1개 내지는 2개가 들어갈 때 탭 모양이 상이할 수 있으므로 넣어준다.
+      padding: 0px;
+      font-size: 14px;
+      line-height: 36px;
+      text-align: center;
+      color: #84868c;
+      border: 0;
+      border-radius: 18px;
+      // background: #f3f4f7;
+      appearance: none;
+      cursor: pointer;
+    }
+  }
+}
+</style>

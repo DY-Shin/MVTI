@@ -13,9 +13,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404, get_list_or_404
 from .serializers import MovieListSerializer, MovieSerializer, CommentSerializer, MvtiSerializer
 from .models import Movie, Comment, Mvti
-
 from random import sample
-
 
 
 @api_view(['GET', 'POST'])
@@ -149,56 +147,33 @@ def mvti(request, mvti_pk):
         return Response(serializer.data)
 
 @api_view(['GET'])
-def recommended(request):
-  if request.user.is_authenticated:
-    movies = get_list_or_404(Movie)
-    mvti = get_object_or_404(Mvti)
-    User = request.user
-    my_genres = {}
-    my_movies = User.like_movies.all()
-    
-    if my_movies:
-      for movie in my_movies:
-          genres = movie.genres.all()
-          for genre in genres:
-              if genre.pk in my_genres:
-                  my_genres[genre.pk] += 1
-              else:
-                  my_genres[genre.pk] = 1
-
-      my_genres = sorted(my_genres, key=lambda x: my_genres[x])[:3]
-
-      recommendations_list = set()
-      for my_genre in my_genres:
-          for movie in movies:
-              genres = movie.genres.all()
-              for genre in genres:
-                  if genre.pk == my_genre:
-                      recommendations_list.add(movie)
-                      break
-      recommendations = sample(recommendations_list, 20)
-      serializer = MovieSerializer(recommendations)
-      # liked = True
-    else:
+def recommended(request, mvti_pk):
+    if request.method == 'GET':
         movies = get_list_or_404(Movie)
-        recommendations = sample(movies, 20)
-        serializer = MovieSerializer(recommendations, many=True)
-        # print('============================')
-        # liked = False
-
-    # context = {
-    #     'my_movies': my_movies,
-    #     'my_genres': my_genres,
-    #     'recommendations': recommendations,
-    #     'liked': liked
-    # }
-    return Response(serializer.data)
-    # return render(request, 'movies/recommended.html', context)
-  else:
-    movies = get_list_or_404(Movie)
-    recommendations = sample(movies, 10)
-    serializer = MovieSerializer(recommendations)
-  # return redirect('accounts:login')
+        # user = request.user
+        mvti = Mvti.objects.get(pk=mvti_pk)
+        if request.user.is_authenticated:
+            my_genres = [
+                mvti.genre1,
+                mvti.genre2,
+                mvti.genre3,
+                mvti.genre4,
+                mvti.genre5,
+                ]    
+            recommendations_list = set()
+            for movie in movies:
+                genres = movie.genres.all()
+                for genre in genres:
+                    if genre.pk in my_genres:
+                        recommendations_list.add(movie)
+            recommendations = sample(list(recommendations_list), 20)
+            serializer = MovieSerializer(recommendations, many=True)
+            return Response(serializer.data)
+        else:
+            movies = get_list_or_404(Movie)
+            recommendations = sample(movies, 10)
+            serializer = MovieSerializer(recommendations, many=True)
+            return Response(serializer.data)
 
 @api_view(['POST'])
 def likes(request, movie_pk):
