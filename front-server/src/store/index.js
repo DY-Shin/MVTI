@@ -157,7 +157,7 @@ export default new Vuex.Store({
     },
     GETLIKE (state, data) {
       state.likemovie = data
-      console.log(state.likemovie);
+      // console.log(state.likemovie);
     },
     GET_REC_MOVIES(state, recMovies) {
       state.recMovies = recMovies
@@ -198,6 +198,7 @@ export default new Vuex.Store({
         method: 'post',
         url: `${API_URL}/accounts/signup/`,
         data: {
+          userpk: payload.userpk,
           username: payload.username,
           email: payload.email,
           password1: payload.password1,

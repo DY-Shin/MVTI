@@ -43,9 +43,19 @@ def movie_detail(request, movie_pk):
         return Response(serializer.data)
     
 
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def movie_like(request, movie_pk, user_pk):
+    if request.method == 'GET':
+        movie = get_object_or_404(Movie, pk=movie_pk)
+        if movie.like_user.filter(pk=user_pk).exists():
+            likes = True
+        else:
+            likes = False
+        like_status = {
+            'likes': likes,
+        }
+        return Response(like_status, status=status.HTTP_200_OK)
 
 # 상세 영화 좋아요(POST)
     if request.method == 'POST':
@@ -63,6 +73,26 @@ def movie_like(request, movie_pk, user_pk):
             # 좋아요한 사람의 수
         }
         return Response(like_status, status=status.HTTP_200_OK)
+
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def movie_like(request, movie_pk, user_pk):
+# # 상세 영화 좋아요(POST)
+#     if request.method == 'POST':
+#         movie = get_object_or_404(Movie, pk=movie_pk)
+#         if movie.like_user.filter(pk=user_pk).exists():
+#             movie.like_user.remove(request.user)
+#             liked = False
+#         else:
+#             movie.like_user.add(request.user)
+#             liked = True
+#         like_status = {
+#             'liked':liked,
+#             # 좋아요 여부
+#             'count':movie.like_user.count(),
+#             # 좋아요한 사람의 수
+#         }
+#         return Response(like_status, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def user_like(request, user_pk):

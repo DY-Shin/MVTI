@@ -109,6 +109,7 @@ export default {
   created() {
     this.getMovieDetail()
     this.getComments()
+    this.get_like()
   },
   methods: {
     getMovieDetail() {
@@ -137,7 +138,7 @@ export default {
     // 영화 좋아요
     like() {
       const movie_id = this.$route.params.id
-      // const bi = document.querySelector('.bi')
+      const bi = document.querySelector('.bi')
       axios({
         method: 'post',
         url: `${API_URL}/api/v1/movies/${this.$route.params.id}/like/${this.$store.state.userpk}/`,
@@ -148,25 +149,48 @@ export default {
           Authorization: `Token ${this.$store.state.token}`
         }
       })
-        .then((res) => {
-          this.isLike = res.data
+        .then(() => {
+          // console.log(res.data)
+          // this.isLike = res.data
           this.$store.commit('GETLIKE', this.movie)
+          if(this.isLike.likes) {
+            bi.classList.remove('bi-heart')
+            bi.classList.add('bi-heart-fill')
+            this.isLike = !this.isLike
+            // console.log('좋아요')
+          }
+          else {
+            bi.classList.remove('bi-heart-fill')
+            bi.classList.add('bi-heart')
+            this.isLike = !this.isLike
+            // console.log('취소')
+          }
         })
         .catch((err) => {
           console.log(err);
         })
-      // if(this.isLike.liked) {
-      //   bi.classList.remove('bi-heart')
-      //   bi.classList.add('bi-heart-fill')
-      //   // console.log('좋아요')
-      // }
-      // else {
-      //   bi.classList.remove('bi-heart-fill')
-      //   bi.classList.add('bi-heart')
-      //   // console.log('취소')
-      // }
     },
-  }
+    get_like() {
+      const movie_id = this.$route.params.id
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/movies/${this.$route.params.id}/like/${this.$store.state.userpk}/`,
+        data: {
+          movie_id
+        },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+        .then((res) => {
+          // console.log(res.data.likes)
+          this.isLike = res.data.likes
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  },
 }
 </script>
 
