@@ -150,7 +150,7 @@ export default {
       })
         .then((res) => {
           this.isLike = res.data
-          this.$store.commit('GETLIKE', this.movie.title)
+          this.$store.commit('GETLIKE', this.movie)
         })
         .catch((err) => {
           console.log(err);
