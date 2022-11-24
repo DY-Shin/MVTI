@@ -83,12 +83,6 @@ export default new Vuex.Store({
     TOGROUP1(state) {
       state.mvtiscore1[0].score += 1
       console.log(state.mvtiscore1)
-      // for (let item of state.mvtiscore) {
-      //   for (let key in item) {
-      //     console.log(key);
-      //     console.log(item[key]);
-      //   }
-      // }
     },
     TOGROUP2(state) {
       state.mvtiscore1[1].score += 1

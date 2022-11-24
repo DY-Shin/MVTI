@@ -1,7 +1,7 @@
 <template>
   <div id="result" class="mt-auto">
     <br>
-    <h3>축하드립니다! -{{ name }}- 유형이시군요!</h3>
+    <h3>축하드립니다! ❰{{ name }}❱ 유형이시군요!</h3>
     <router-link :to="{ name: 'MovieView'}">
       <button class="btn btn-outline-primary" type="button">{{ username }}님의 취향 영화 보러가기</button>
     </router-link>

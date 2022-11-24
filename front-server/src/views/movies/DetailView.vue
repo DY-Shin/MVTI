@@ -202,6 +202,7 @@ export default {
   }
   #comment {
     background-color: white;
+    border-radius: 20px;
   }
   #actorCard{
     background-color: rgba( 255, 255, 255, 0.7 );
