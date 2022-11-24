@@ -44,37 +44,34 @@ def movie_detail(request, movie_pk):
     
 
 @api_view(['POST'])
-@authentication_classes([JSONWebTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def movie_like(request, movie_pk, user_pk):
+
 # 상세 영화 좋아요(POST)
-    movie = get_object_or_404(Movie, pk=movie_pk)
-    # 상세 영화
-    if movie.like_user.filter(pk=user_pk).exists():
-        movie.like_user.remove(request.user)
-        liked = False
-    else:
-        movie.like_user.add(request.user)
-        liked = True
-    like_status = {
-        'liked':liked,
-        # 좋아요 여부
-        'count':movie.like_user.count(),
-        # 좋아요한 사람의 수
-    }
-    return Response(like_status, status=status.HTTP_200_OK)
-
-
-@api_view(['POST'])
-def user_likes(request, user_pk):
-    user = get_object_or_404(get_user_model(), pk=user_pk)
-    data = []
-    movies_pk = request.data
-    for movie_pk in movies_pk:
+    if request.method == 'POST':
         movie = get_object_or_404(Movie, pk=movie_pk)
-        serializer = MovieSerializer(movie)
-        data.append(serializer.data)
-    return Response(data)
+        if movie.like_user.filter(pk=user_pk).exists():
+            movie.like_user.remove(request.user)
+            liked = False
+        else:
+            movie.like_user.add(request.user)
+            liked = True
+        like_status = {
+            'liked':liked,
+            # 좋아요 여부
+            'count':movie.like_user.count(),
+            # 좋아요한 사람의 수
+        }
+        return Response(like_status, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def user_like(request, user_pk):
+    if request.method == 'GET':
+        user = request.user
+        like_movies = user.like_movies
+        serializer = MovieListSerializer(like_movies, many=True)
+        return Response(serializer.data)
+
 
 @api_view(['POST'])
 def user_comments(request, user_pk):

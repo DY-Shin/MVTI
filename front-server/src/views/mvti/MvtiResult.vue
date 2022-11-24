@@ -102,6 +102,7 @@ export default {
       })
         .then((res) => {
           this.id = res.data.pk
+          this.$store.state.userpk = res.data.pk
           console.log(this.id)
         })
         .catch((err) => {

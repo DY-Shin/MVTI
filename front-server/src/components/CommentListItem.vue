@@ -74,7 +74,7 @@
       </div>
       <div class="d-flex justify-content-end">
         <button type="submit" class="btn btn-primary" @click="deleteComment">X</button>
-        <button type="submit" class="btn btn-primary" @click="SwitchIsEditing">수정</button>
+        <button type="submit" class="btn btn-primary" @click="SwitchIsEditing">+</button>
       </div>
       <div class="d-flex justify-content-start">
         <p>{{ comment.content }}</p>

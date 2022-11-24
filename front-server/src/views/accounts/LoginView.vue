@@ -27,6 +27,8 @@
 <script>
 // import router from '@/router'
 // import validateEmail from ''
+// import axios from 'axios'
+// const API_URL = "http://127.0.0.1:8000"
 
 export default {
   name: 'LogInView',
@@ -48,7 +50,6 @@ export default {
         password
       }
       this.$store.dispatch('logIn', payload)
-      // router.push({name: 'MovieView' })
     },
     
   }

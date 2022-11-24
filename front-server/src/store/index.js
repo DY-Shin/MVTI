@@ -39,13 +39,6 @@ export default new Vuex.Store({
     isLogin(state) {
       return state.token ? true : false
     },
-    // user_comment(state) {
-    //   state.usercomments = state.allcomments.filter((comment) => {
-    //     if (comment.username === state.username) {
-    //       return comment
-    //     }
-    //   })
-    // }
   },
   mutations: {
     GET_MOVIES(state, movies){
@@ -65,18 +58,8 @@ export default new Vuex.Store({
       router.push({name: 'LoginView'})
     },
 
-    // SAVE_USERNAME(state, payload) {
-    //   // state.token = token
-    //   state.username = payload.username
-    //   router.push({name: 'MovieView' })
-    // },
 
-    // CREATE_COMMENT(state, commentItem) {
-    //   state.comments = commentItem
-    //   console.log(commentItem)
-    // },
-
-    
+    // 댓글 가져오기
     GET_COMMENTS(state, data) {
       // console.log(data)
       state.comments = data
@@ -88,7 +71,7 @@ export default new Vuex.Store({
 
     GET_USER_COMMENTS(state) {
       state.usercomments = state.allcomments.filter((comment) => {
-        console.log(state.usercomments);
+        // console.log(state.usercomments);
         if (comment.username === state.username) {
           return comment
         }
@@ -157,9 +140,6 @@ export default new Vuex.Store({
       console.log(state.resultmvti);
     },
 
-    LIKE_MOVIE(state, data) {
-      state.likemovie.push(data)
-    },
     RESET_MVTI (state) {
       state.mvtiscore1[0].score = 0
       state.mvtiscore1[1].score = 0
@@ -170,11 +150,34 @@ export default new Vuex.Store({
       state.resultscore = []
       state.resultname = []
 
+    },
+    GETUSER (state, data) {
+      state.userpk = data.pk
+    },
+    GETLIKE (state, data) {
+      state.likemovie = data
+      console.log(state.likemovie);
     }
-    
 
   },
   actions: {
+    getUser(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/user/`,
+        headers: {
+          Authorization: `Token ${context.state.token}`
+        }
+      })
+        .then((res) => {
+          console.log(res)
+          console.log('================================');
+          context.commit('GETUSER', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     getMovies(context){
       axios({
         method: 'get',
@@ -229,6 +232,8 @@ export default new Vuex.Store({
         }
         context.commit('SAVE_TOKEN', payload1)
         router.push({name: 'MovieView' })
+        context.dispatch('getUser')
+        console.log();
       })
       .catch((err) => {
         console.log(err)
@@ -271,19 +276,39 @@ export default new Vuex.Store({
       context.commit('GET_RESULT')
     },
 
-    likeMovie(context) {
-      axios({
-        method: 'get',
-        url: `${API_URL}/api/v1/comments/`,
-      })
-      .then((res) => {
-        context.commit('LIKE_MOVIE', res.data)
-        // console.log(res)
-      })
-      .catch(err => console.log(err))
-    },
+    // likeMovie(context) {
+    //   axios({
+    //     method: 'get',
+    //     url: `${API_URL}/api/v1/comments/`,
+    //   })
+    //   .then((res) => {
+    //     context.commit('LIKE_MOVIE', res.data)
+    //     // console.log(res)
+    //   })
+    //   .catch(err => console.log(err))
+    // },
+
     reset_mvti(context) {
       context.commit('RESET_MVTI')
+    },
+
+    getlike(context) {
+
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/movies/like/${context.state.userpk}/`,
+        headers: {
+          Authorization: `Token ${context.state.token}`
+        }
+      })
+        .then((res) => {
+          // console.log(res);
+          context.commit('GETLIKE', res.data)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      
     }
     
   },
