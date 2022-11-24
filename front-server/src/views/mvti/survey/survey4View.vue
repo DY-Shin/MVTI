@@ -1,18 +1,12 @@
 <template>
   <div>
     <div>
-      <p>콧구멍에 치아가 나면?</p>
+      <img src="@/assets/mvtisurvey/mvti4.jpg" alt="img">
     </div>
-    <div class="d-flex justify-content-center">
-      <div>
-        <p @click="toGroup3">치과가기</p>
-      </div>
-      <div>
-        <p>vs</p>
-      </div>
-      <div>
-        <p @click="toGroup4">이비인후과 가기</p>
-      </div>
+    <br>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-outline-primary" type="button" @click="toGroup3">부모님에게 내 수명 5년 주기</button>
+      <button class="btn btn-outline-primary" type="button" @click="toGroup4">그냥 내 수명대로 살기</button>
     </div>
   </div>
 </template>
@@ -22,12 +16,12 @@ export default {
   name: 'survey1View',
   methods: {
     toGroup3() {
-      this.$store.commit('TOGROUP3')
+      this.$store.commit('TOGROUP2')
       this.$router.push({name: 'survey5'})
     }
     ,
     toGroup4() {
-      this.$store.commit('TOGROUP4')
+      this.$store.commit('TOGROUP6')
       this.$router.push({name: 'survey5'})
     }
   }

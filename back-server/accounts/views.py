@@ -15,12 +15,21 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404, get_list_or_404
 from .serializers import UserDetailSerializer
 from movies.serializers import CommentSerializer
-from .models import User
+from .models import User, Mvti
 
 # Create your views here.
 @api_view(['GET'])
-def user_comments(user_pk):
-    user = get_object_or_404(get_user_model(), pk=user_pk)
-    comments = user.comment_set.all()
-    serializer = CommentSerializer(comments, many=True)
-    return Response(serializer.data)
+def userdetail(request, user_pk):
+    if request.method == 'GET':
+        User = get_user_model()
+        user = get_object_or_404(User, pk=user_pk)
+        return Response(serializer.data)
+
+@api_view(['POST'])
+def usermvti(request, user_pk, mvti_pk):
+    if request.method == 'POST':
+        user = get_object_or_404(User, pk=user_pk)
+        user.mvti = get_object_or_404(Mvti, pk=mvti_pk)
+        user.save()
+        serializer = UserDetailSerializer(user)
+        return Response(serializer.data)

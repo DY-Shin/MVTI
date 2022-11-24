@@ -24,15 +24,16 @@
   
   
   </div> -->
-  <!-- <div v-else class="fw-bold text-start text-white mx-5">
-    <h4>댓글이 없네요..</h4>
-  </div> -->
-  <div>
+  
+  <div v-if="comments.length > 0">
     <UserCommentItem
       v-for="comment in comments"
       :key="comment.id"
       :comment="comment"
     />
+  </div>
+  <div v-else class="fw-bold text-center text-white mx-5">
+    <h4>댓글이 없네요..</h4>
   </div>
 </template>
 

@@ -3,20 +3,19 @@
     <li>
       <!-- 댓글 수정 중 -->
       <div v-if="isEditing">
+        <div style="background:#000; padding-bottom:10px;" class="d-flex justify-content-center">
+          <star-rating :increment="0.5" v-model="movieScore1"></star-rating>
+        </div>
         <input 
         type="text" 
         id="comment"
         v-model.trim="commentContent">
-        <div style="background:#000; padding-bottom:10px;">
-          <star-rating :glow="10" :rounded-corners="true" v-model="movieScore1" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
-        </div>
         <button type="submit" class="btn btn-primary" @click="updateComment">수정</button>
       </div>
       <!-- 수정 X -->
       <div class="commentItem" v-else>
         <span id="start">
-        <b>{{ comment.username }}</b>
-        <span> - </span>
+          <b>{{ comment.username }}</b>
           <span v-if="comment.score === 5">
             <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
               class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
@@ -72,10 +71,10 @@
               class="bi bi-star"></i>
           </span>
         </span>
-        <div class="d-flex justify-content-end">
-          <button type="submit" class="btn btn-primary" @click="deleteComment">X</button>
-          <button type="submit" class="btn btn-primary" @click="SwitchIsEditing">수정</button>
-        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary" @click="deleteComment">X</button>
+        <button type="submit" class="btn btn-primary" @click="SwitchIsEditing">수정</button>
       </div>
       <div class="d-flex justify-content-start">
         <p>{{ comment.content }}</p>
@@ -100,10 +99,11 @@ export default {
   data() {
     return {
       isEditing: false,
+      commentid: this.comment.pk,
       commentContent: this.comment.content,
       movieScore1: this.comment.score,
       commentUser: this.comment.username,
-      currentUser: this.$store.state.username
+      currentUser: this.$store.state.username,
     }
   },
   methods: {
@@ -117,7 +117,8 @@ export default {
     },
     deleteComment() {
       const movie_id = this.$route.params.id
-      const comment_id = this.comment.id
+      const comment_id = this.commentid
+      console.log(this.comment_id);
 
       axios({
         method: 'delete',
@@ -128,7 +129,7 @@ export default {
       })
       .then(() => {
         // console.log(res)
-        this.$store.commit('get_comments', movie_id)
+        this.$store.dispatch('get_comments', movie_id)
       })
       .catch((err) => {
         console.log(err)
@@ -137,7 +138,7 @@ export default {
     },
     updateComment() {
       const movie_id = this.$route.params.id
-      const comment_id = this.comment.id
+      const comment_id = this.commentid
       const content = this.commentContent
       const score = this.movieScore1
 
@@ -155,7 +156,7 @@ export default {
       .then((res) => {
         console.log(res)
         this.isEditing = !this.isEditing
-        this.$store.commit('GET_COMMENTS', movie_id)
+        this.$store.dispatch('get_comments', movie_id)
       })
       .catch((err) => {
         console.log(err)

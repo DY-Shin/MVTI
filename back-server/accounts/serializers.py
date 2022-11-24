@@ -2,7 +2,7 @@ from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from django.contrib.auth import get_user_model
 # from rest_framework.fields import SerializerMethodField
-from movies.models import Comment
+from movies.models import Comment, Mvti
 from .models import User
 
 class CustomRegisterSerializer(RegisterSerializer):
@@ -28,7 +28,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('pk', 'username', 'comment_set',)
+        fields = ('pk', 'username', 'comment_set', 'mvti',)
     # class MovieSerializer(serializers.ModelSerializer):
 
     #     class Meta:
@@ -37,11 +37,18 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     # movie = MovieSerializer(read_only=True)
 
-    class UserSerializer(serializers.ModelSerializer):
-
+    class MvtiSerializer(serializers.ModelSerializer):
         class Meta:
-            model = get_user_model()
-            fields = ('pk', 'username')
+            model = Mvti
+            fields = ('pk', 'name', 'genre1', 'genre2', 'genre3',)
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('pk', 'username', 'mvti')
+        read_only_fields = ('mvti',)
         
     
     

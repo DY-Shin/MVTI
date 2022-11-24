@@ -30,6 +30,8 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
+        # 다나카 유키짱! ><
+
 class Comment(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -46,6 +48,7 @@ class Comment(models.Model):
 
 class Mvti(models.Model):
     name = models.CharField(max_length=100)
+    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     genre1 = models.IntegerField()
     genre2 = models.IntegerField()
     genre3 = models.IntegerField()

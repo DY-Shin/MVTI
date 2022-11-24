@@ -33,7 +33,7 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = '__all__'
-        read_only_fields = ('user', 'like_user')
+        read_only_fields = ('user',)
 
 
 # class CommentListSerializer(serializers.ModelSerializer):

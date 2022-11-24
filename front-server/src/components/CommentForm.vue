@@ -15,9 +15,7 @@
     </fieldset> -->
     <!-- <h2>Glowing Stars</h2> -->
     <div style="background:#000; padding-bottom:10px;" class="d-flex justify-content-center">
-    
-      <star-rating :glow="10" :rounded-corners="true" v-model="movieScore"
-        :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+      <star-rating :increment="0.5" v-model="movieScore"></star-rating>
     </div>
     <br>
     <div>

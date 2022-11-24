@@ -1,18 +1,12 @@
 <template>
   <div>
     <div>
-      <p>밸런스 게임!</p>
+      <img src="@/assets/mvtisurvey/mvti9.jpg" alt="img">
     </div>
-    <div class="d-flex justify-content-center">
-      <div>
-        <p @click="toGroup5">손톱 옆 거스름 뜯다가 찢김</p>
-      </div>
-      <div>
-        <p>vs</p>
-      </div>
-      <div>
-        <p @click="toGroup6">음식 먹다가 혀 깨물음</p>
-      </div>
+    <br>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-outline-primary" type="button" @click="toGroup5">과제 대신해주는 토니 스타크</button>
+      <button class="btn btn-outline-primary" type="button" @click="toGroup6">밥 잘 사주는 이상형</button>
     </div>
   </div>
 </template>
@@ -22,12 +16,12 @@ export default {
   name: 'survey1View',
   methods: {
     toGroup5() {
-      this.$store.commit('TOGROUP5')
+      this.$store.commit('TOGROUP3')
       this.$store.dispatch('get_result')
       this.$router.push({name: 'MvtiResult'})
     },
     toGroup6() {
-      this.$store.commit('TOGROUP6')
+      this.$store.commit('TOGROUP4')
       this.$store.dispatch('get_result')
       this.$router.push({name: 'MvtiResult'})
     }

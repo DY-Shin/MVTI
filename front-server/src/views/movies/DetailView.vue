@@ -13,6 +13,12 @@
       <div class="col-7">
         <div class="card mt-5 text-start" id="body">
           <div class="card-body">
+            <div v-if="!isLike">
+              <i class="bi bi-heart" @click="SwitchIsLike"></i>
+            </div>
+            <div v-else>
+              <i class="bi bi-heart-fill" @click="SwitchIsLike"></i>
+            </div>
             <h1 class="card-header"><b>{{ movie?.title }}</b></h1>
             <h5><b>{{ movie?.released_date }} | {{ movie?.vote_avg }}</b></h5>
             <!-- <p>{{ movie?.genres }}</p> -->
@@ -98,6 +104,13 @@ export default {
     this.getComments()
   },
   methods: {
+    SwitchIsLike() {
+      if (this.currentUser === this.commentUser) {
+        this.isLike = !this.isLike
+      } else {
+        alert('본인만 수정 가능합니다!')
+      }
+    },
     getMovieDetail() {
       axios({
         method: 'get',
@@ -120,6 +133,13 @@ export default {
       const movieId = this.$route.params.id
 
       this.$store.dispatch('get_comments', movieId)
+    },
+
+    // 영화 좋아요
+    likeMovie() {
+      const movieId = this.$route.params.id
+
+      this.$store.dispatch('likeMovie', movieId)
     }
   }
 }

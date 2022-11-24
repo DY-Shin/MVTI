@@ -50,6 +50,7 @@ export default {
       this.$store.dispatch('logIn', payload)
       // router.push({name: 'MovieView' })
     },
+    
   }
 }
 </script>

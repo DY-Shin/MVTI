@@ -54,6 +54,7 @@ export default {
   name: 'SingupView',
   data() {
     return {
+      userpk: null,
       username: null,
       email: null,
       password1: null,
@@ -70,12 +71,15 @@ export default {
   },
   methods: {
     signup() {
+      const userpk = this.id
       const username = this.username
       const email = this.email
       const password1 = this.password1
       const password2 = this.password2
+      console.log(this.id);
 
       const payload = {
+        userpk,
         username,
         email,
         password1,

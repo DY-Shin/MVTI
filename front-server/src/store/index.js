@@ -14,6 +14,7 @@ export default new Vuex.Store({
     movies: [],
     token: null,
     username: null,
+    userpk: null,
     comments: null,
     allcomments: null,
     usercomments: null,
@@ -29,6 +30,7 @@ export default new Vuex.Store({
     resultscore: [],
     resultname: [],
     resultmvti: null,
+    likemovie: []
   },
   plugins: [
     createPersistedState(),
@@ -53,6 +55,7 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, payload1) {
       state.token = payload1.token
       state.username = payload1.username
+      state.userpk = payload1.userpk
       // router.push({name: 'MovieView' })
       // console.log(payload1.username)
     },
@@ -133,7 +136,7 @@ export default new Vuex.Store({
         state.resultname.push(state.resultscore[i]['name']);
      }
       console.log(state.resultname);
-      // console.log(JSON.stringify(state.resultname))
+      console.log(JSON.stringify(state.resultname))
       if (JSON.stringify(state.resultname) === '["group1","group2","group3"]') {
         state.resultmvti = 1
       } else if (JSON.stringify(state.resultname) === '["group1","group2","group4"]') {
@@ -153,15 +156,21 @@ export default new Vuex.Store({
       }
       console.log(state.resultmvti);
     },
-    // MAKE_SCORE_0 (state) {
-    //   state.mvtiscore['group1'] = 0
-    //   state.mvtiscore['group2'] = 0
-    //   state.mvtiscore['group3'] = 0
-    //   state.mvtiscore['group4'] = 0
-    //   state.mvtiscore['group5'] = 0
-    //   state.mvtiscore['group6'] = 0
 
-    // }
+    LIKE_MOVIE(state, data) {
+      state.likemovie.push(data)
+    },
+    RESET_MVTI (state) {
+      state.mvtiscore1[0].score = 0
+      state.mvtiscore1[1].score = 0
+      state.mvtiscore1[2].score = 0
+      state.mvtiscore1[3].score = 0
+      state.mvtiscore1[4].score = 0
+      state.mvtiscore1[5].score = 0
+      state.resultscore = []
+      state.resultname = []
+
+    }
     
 
   },
@@ -190,10 +199,11 @@ export default new Vuex.Store({
         }
       })
         .then((res) => {
-          console.log(res)
+          console.log(payload)
           const payload1 = {
             token : res.data.key,
-            username : payload.username
+            username : payload.username,
+            userpk : payload.userpk
           }
           context.commit('SAVE_TOKEN', payload1)
         })
@@ -247,6 +257,7 @@ export default new Vuex.Store({
       })
       .then((res) => {
         context.commit('GET_ALL_COMMENTS', res.data)
+        context.commit('GET_USER_COMMENTS')
         // console.log(res)
       })
       .catch(err => console.log(err))
@@ -258,7 +269,23 @@ export default new Vuex.Store({
 
     get_result(context) {
       context.commit('GET_RESULT')
+    },
+
+    likeMovie(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/comments/`,
+      })
+      .then((res) => {
+        context.commit('LIKE_MOVIE', res.data)
+        // console.log(res)
+      })
+      .catch(err => console.log(err))
+    },
+    reset_mvti(context) {
+      context.commit('RESET_MVTI')
     }
+    
   },
   modules: {
   }

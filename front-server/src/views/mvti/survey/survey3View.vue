@@ -1,18 +1,12 @@
 <template>
   <div>
     <div>
-      <p>여행을 간다면?</p>
+      <img src="@/assets/mvtisurvey/mvti3.jpg" alt="img">
     </div>
-    <div class="d-flex justify-content-center">
-      <div>
-        <p @click="toGroup1">깊은 숲 속 오두막 혼자가기</p>
-      </div>
-      <div>
-        <p>vs</p>
-      </div>
-      <div>
-        <p @click="toGroup2">내가 주최한 30명 단체여행</p>
-      </div>
+    <br>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-outline-primary" type="button" @click="toGroup1">깊은 숲 속 오두막 혼자가기</button>
+      <button class="btn btn-outline-primary" type="button" @click="toGroup2">내가 주최한 30명 단체여행</button>
     </div>
   </div>
 </template>
@@ -26,7 +20,7 @@ export default {
       this.$router.push({name: 'survey4'})
     },
     toGroup2() {
-      this.$store.commit('TOGROUP2')
+      this.$store.commit('TOGROUP5')
       this.$router.push({name: 'survey4'})
     }
   }
