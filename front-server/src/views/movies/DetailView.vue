@@ -3,14 +3,14 @@
     :style="{ backgroundImage : `url(${backImgUrl})`}"
     style="background-size: cover; overflow: auto; background-attachment: fixed;"
   >
-    <div class="d-flex flex-row justify-content-evenly">
+    <div class="d-flex flex-row justify-content-evenly flex-wrap">
       <!-- <h1>Detail</h1> -->
-      <div class="col-3">
+      <div class="col-12 col-lg-3">
         <div class="card mt-5" style="width: 20rem; margin: 0 auto;">
           <img :src="movieImgUrl" alt="movie_img">
         </div>
       </div>
-      <div class="col-7">
+      <div class="col-12 col-lg-7">
         <div class="card mt-5 text-start" id="body">
           <div class="card-body">
             <div class="card-header d-flex justify-content-between">
