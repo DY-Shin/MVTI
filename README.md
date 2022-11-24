@@ -39,6 +39,8 @@
 
 ## 🔩핵심 기능
 
+- 회원가입 및 로그인
+  - 토큰기반 인증 (Token-based Authentication) 방식을 이용
 - 영화 목록
   - 영화 상세 정보
   - 유튜브 API를 이용한 예고편 출력
@@ -121,7 +123,6 @@
 ![image-20221124164640341](README.assets/image-20221124164640341.png)
 
 - 그리드 시스템을 이용하여 반응형 웹디자인 구현
-
 
 <img src="C:\Users\Chloe\Desktop\ssafy\최종 pjt\final-pjt\README.assets\image-20221124221747199.png" style="zoom:80%;" />
 
