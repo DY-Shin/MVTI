@@ -4,12 +4,12 @@
       <div class="carousel-inner">
         <div v-if="isLogin" class="carousel-item active">
           <router-link :to="{ name: 'survey1' }">
-            <img src="@/assets/banner.jpg" class="d-block w-50 mx-auto" alt="...">
+            <img src="@/assets/banner.jpg" class="d-block w-70 mx-auto" alt="...">
           </router-link>
         </div>
         <div v-else class="carousel-item active">
           <router-link :to="{ name: 'LoginView' }">
-            <img src="@/assets/banner.jpg" class="d-block w-50 mx-auto" alt="...">
+            <img src="@/assets/banner.jpg" class="d-block w-70 mx-auto" alt="...">
           </router-link>
         </div>
         <CarouselItem
@@ -30,7 +30,7 @@
     <br>
     <br>
     <div v-if="isLogin && mvti_id">
-      <h1>당신을 위한 추천 영화</h1>
+      <h1>❰{{ name }}❱ 유형인 당신을 위한 추천 영화</h1>
       <swiper 
         ref="filterSwiper" 
         :options="swiperOption" 
@@ -68,6 +68,8 @@ import CarouselItem from '@/components/CarouselItem'
 import _ from 'lodash'
 import { swiper } from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.min.css'
+import axios from 'axios'
+const API_URL = "http://127.0.0.1:8000"
 
 export default {
   name: 'MovieList',
@@ -79,6 +81,7 @@ export default {
   },
   data () {
     return {
+      name: null,
       swiperOption: {
         slidesPerView: 'auto',
         slidesPerGroup: 4,
@@ -110,7 +113,22 @@ export default {
     recMovies(){
       return this.$store.state.recMovies
     }
-  }
+  },
+  methods: {
+    get_mvti() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/movies/mvti/${this.$store.state.resultmvti}`
+      })
+      .then((res) => {
+        this.name = res.data.name
+      })
+      .catch((err) => console.log(err))
+    },
+  },
+  created() {
+    this.get_mvti()
+  },
 }
 </script>
 <style lang="scss" scoped>

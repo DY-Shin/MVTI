@@ -18,14 +18,15 @@
       <router-link :to="{ name: 'survey1' }"><h5>MVTI 검사하고 나에게 맞는 영화 추천받기</h5></router-link>
     </div>
     <div v-if="usercomments">
-      <div class="fw-bold text-center text-white my-5">
+      <div class="fw-bold text-center text-white mt-5">
           <h4>코멘트 {{ usercomments.length }}개</h4>
       </div>
     </div>
     <div v-if="likemovie">
-      <div class="fw-bold text-center text-white my-5"></div>
+      <div class="fw-bold text-center text-white "></div>
         <h4>좋아요한 영화 {{ likemovie.length }}개</h4>
     </div>
+    <br>
     <hr>
     <div class="mt-5">
       <b><h5>
@@ -76,10 +77,23 @@ export default {
       return this.$store.state.likemovie
     }
   },
-  data: function () {
+  data () {
     return {
       comment: null,
       name: null,
+      swiperOption: {
+        slidesPerView: 'auto',
+        slidesPerGroup: 4,
+        spaceBetween: 6, // swiper-slide 사이의 간격 지정
+        slidesOffsetBefore: 0, // slidesOffsetBefore는 첫번째 슬라이드의 시작점에 대한 변경할 때 사용
+        slidesOffsetAfter: 0, // slidesOffsetAfter는 마지막 슬라이드 시작점 + 마지막 슬라이드 너비에 해당하는 위치의 변경이 필요할 때 사용
+        freeMode: true, // freeMode를 사용시 스크롤하는 느낌으로 구현 가능
+        centerInsufficientSlides: true, // 컨텐츠의 수량에 따라 중앙정렬 여부를 결정함
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      }
     }
   },
   methods: {

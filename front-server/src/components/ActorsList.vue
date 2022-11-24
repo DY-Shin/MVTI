@@ -31,6 +31,6 @@ export default {
   } */
   #actorCard #card {
     /* background-color: rgba( 255, 255, 255, 0.7 ); */
-    color: black;
+    color: black !important;
   }
 </style>

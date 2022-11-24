@@ -6,8 +6,8 @@
         params: { id: movie.id }
       }"  
     >
-      <img :src="imgUrl" class="d-block w-50 mx-auto" alt="...">
-      <div class="carousel-caption d-none d-md-block w-50 mx-auto">
+      <img :src="imgUrl" class="d-block w-70 mx-auto" alt="...">
+      <div class="carousel-caption d-none d-md-block w-70 mx-auto">
         <div id="title" class="d-inline-flex">
           <h2><b>{{ this.movie.title }}</b></h2>
         </div>
@@ -56,4 +56,19 @@ export default {
   -webkit-text-stroke-width: 0.2px;
   -webkit-text-stroke-color: black;
 } */
+.carousel-inner {
+  width: auto;
+  height: 800px; /* 이미지 높이 변경 */
+}
+
+.carousel-item {
+  width: auto;
+  height: 100%;
+}
+
+.d-block {
+  display: block;
+  width: auto;
+  height: 100%;
+}
 </style>

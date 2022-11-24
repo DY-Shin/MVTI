@@ -1,28 +1,34 @@
 <template>
-  <div>
-    <router-link :to="{
-                    name: 'DetailView',
-                    params: { id: movie.id }
-                  }">
+  <swiper-slide role="tab">
+    <router-link 
+      :to="{ 
+            name: 'DetailView',
+            params: { id: movie.id }
+          }"
+    >
       <div id="card">
-          <img :src="imgUrl" alt="img">
-          <div id="card-body">
-            <!-- <h5>{{ movie.id }}</h5> -->
-            <h4>{{ movie.title }}</h4>
-          </div>
+        <img :src="imgUrl" alt="img">
+        <div id="card-body">
+          <!-- <h5>{{ movie.id }}</h5> -->
+          <h4>{{ movie.title }}</h4>
+        </div>
       </div>
     </router-link>
-  </div>
+  </swiper-slide>
 </template>
 
 <script>
 // import axios from 'axios'
 // const API_URL = "http://127.0.0.1:8000"
+import { swiperSlide } from 'vue-awesome-swiper'
 
 export default {
   name: 'UserLikeItem',
   props: {
     movie: Object
+  },
+  components: {
+    swiperSlide,
   },
   data() {
     return{
@@ -41,8 +47,19 @@ export default {
 </script>
 
 <style>
-#card {
-  color: white;
+#card-body {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  word-break: keep-all;
+  min-height: 60px;
+  }
+
+a {
+  /* color: black !important; */
   text-decoration: none !important;
+}
+#card {
+  /* background-color: rgba( 255, 255, 255, 0.7 ); */
+  color: white !important;
 }
 </style>
