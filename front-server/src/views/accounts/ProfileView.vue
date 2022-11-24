@@ -17,6 +17,7 @@
       <h5>아직 MVTI 검사를 하지 않으셨군요!</h5>
       <router-link :to="{ name: 'survey1' }"><h5>MVTI 검사하고 나에게 맞는 영화 추천받기</h5></router-link>
     </div>
+    <br>
     <div v-if="usercomments">
       <div class="fw-bold text-center text-white mt-5">
           <h4>코멘트 {{ usercomments.length }}개</h4>
