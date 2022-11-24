@@ -1,11 +1,11 @@
 <template>
-  <div class="mt-auto">
+  <div id="result" class="mt-auto">
     <br>
-    <h3>축하드립니다! {{ name }} 유형이시군요!</h3>
-    <br>
-    <button class="btn btn-outline-primary" type="button">{{ username }}님의 취향 영화 보러가기</button>
-    <br>
-    <div class="d-flex justify-content-center mt-auto">
+    <h3>축하드립니다! -{{ name }}- 유형이시군요!</h3>
+    <router-link :to="{ name: 'MovieView'}">
+      <button class="btn btn-outline-primary" type="button">{{ username }}님의 취향 영화 보러가기</button>
+    </router-link>
+    <div id="image" class="d-flex justify-content-center mt-3">
       <span v-if="mvti_pk === 1">
         <img src="@/assets/mvti1.jpg" alt="img">
       </span>
@@ -102,7 +102,6 @@ export default {
       })
         .then((res) => {
           this.id = res.data.pk
-          this.$store.state.userpk = res.data.pk
           console.log(this.id)
         })
         .catch((err) => {
@@ -132,7 +131,10 @@ export default {
 </script>
 
 <style>
-.image {
-  width: 300px;
+#image img {
+  width: 700px;
+}
+#result{
+  color: white;
 }
 </style>

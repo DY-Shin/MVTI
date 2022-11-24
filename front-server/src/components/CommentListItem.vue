@@ -15,7 +15,7 @@
       <!-- 수정 X -->
       <div class="commentItem" v-else>
         <span id="start">
-          <b>{{ comment.username }}</b>
+          <b>{{ comment.username }} - </b>
           <span v-if="comment.score === 5">
             <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
               class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>

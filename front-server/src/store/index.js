@@ -12,6 +12,7 @@ const API_URL = "http://127.0.0.1:8000"
 export default new Vuex.Store({
   state: {
     movies: [],
+    recMovies: [],
     token: null,
     username: null,
     userpk: null,
@@ -157,8 +158,10 @@ export default new Vuex.Store({
     GETLIKE (state, data) {
       state.likemovie = data
       console.log(state.likemovie);
+    },
+    GET_REC_MOVIES(state, recMovies) {
+      state.recMovies = recMovies
     }
-
   },
   actions: {
     getUser(context) {
@@ -293,7 +296,6 @@ export default new Vuex.Store({
     },
 
     getlike(context) {
-
       axios({
         method: 'get',
         url: `${API_URL}/api/v1/movies/like/${context.state.userpk}/`,
@@ -306,11 +308,21 @@ export default new Vuex.Store({
           context.commit('GETLIKE', res.data)
         })
         .catch((err) => {
-          console.log(err);
-        });
-      
+          console.log(err)
+        })
+    },
+
+    getRecMovies(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/movies/recommendation/${this.state.resultmvti}/`,
+      })
+        .then(res=> {
+          // console.log(res, context)
+          context.commit('GET_REC_MOVIES', res.data)
+        })
+        .catch(err => console.log(err))
     }
-    
   },
   modules: {
   }

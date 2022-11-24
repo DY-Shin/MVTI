@@ -1,19 +1,16 @@
 <template>
   <div class="movie-list text-center">
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-      <!-- <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div> -->
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="@/assets/banner.jpg" class="d-block w-50 mx-auto" alt="...">
-          <!-- <div class="carousel-caption d-none d-md-block w-50 mx-auto">
-            <h2>1</h2>
-            <br>
-            <p>2</p>
-          </div> -->
+        <div v-if="isLogin" class="carousel-item active">
+          <router-link :to="{ name: 'survey1' }">
+            <img src="@/assets/banner.jpg" class="d-block w-50 mx-auto" alt="...">
+          </router-link>
+        </div>
+        <div v-else class="carousel-item active">
+          <router-link :to="{ name: 'LoginView' }">
+            <img src="@/assets/banner.jpg" class="d-block w-50 mx-auto" alt="...">
+          </router-link>
         </div>
         <CarouselItem
           v-for="movie in sampleMovies"
@@ -29,6 +26,24 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
+    </div>
+    <br>
+    <br>
+    <div v-if="isLogin && mvti_id">
+      <h1>당신을 위한 추천 영화</h1>
+      <swiper 
+        ref="filterSwiper" 
+        :options="swiperOption" 
+        role="tablist"
+      >
+        <RecommendedItem
+          v-for="movie in recMovies"
+          :key="movie.id"
+          :movie="movie"
+        />
+        <div class="swiper-button-prev" slot="button-prev"></div>
+        <div class="swiper-button-next" slot="button-next"></div>
+      </swiper>
     </div>
     <h1>Movie List</h1>
     <swiper 
@@ -48,6 +63,7 @@
 </template>
 <script>
 import MovieListItem from '@/components/MovieListItem'
+import RecommendedItem from '@/components/RecommendedItem'
 import CarouselItem from '@/components/CarouselItem'
 import _ from 'lodash'
 import { swiper } from 'vue-awesome-swiper'
@@ -59,6 +75,7 @@ export default {
     MovieListItem,
     swiper,
     CarouselItem,
+    RecommendedItem,
   },
   data () {
     return {
@@ -83,6 +100,15 @@ export default {
     },
     sampleMovies(){
       return _.sampleSize(this.$store.state.movies, 5)
+    },
+    isLogin(){
+      return this.$store.getters.isLogin
+    },
+    mvti_id(){
+      return this.$store.state.resultmvti
+    },
+    recMovies(){
+      return this.$store.state.recMovies
     }
   }
 }

@@ -23,7 +23,7 @@
         <h4>좋아요한 영화 {{ likemovie.length }}개</h4>
     </div>
     <hr>
-    <div class="my-5">
+    <div class="mt-5">
       <b><h5>
         <!-- <img src="@/assets/heartviolet.gif" alt="img" width="30px"> -->
         {{ username }}님이 좋아한 영화
@@ -33,7 +33,7 @@
       <UserLike/>
     </div>
     <hr>
-    <div class="my-5">
+    <div class="mt-5">
       <b><h5>
         <!-- <img src="@/assets/heart.gif" alt="img" width="30px"> -->
         {{ username }}님이 남긴 리뷰
@@ -41,6 +41,7 @@
       </h5></b>
       <br>
       <UserComment/>
+      <br>
     </div>
   </div>
 </template>

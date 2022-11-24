@@ -149,25 +149,20 @@ def recommended(request, mvti_pk):
         movies = get_list_or_404(Movie)
         # user = request.user
         mvti = Mvti.objects.get(pk=mvti_pk)
-        if request.user.is_authenticated:
-            my_genres = [
-                mvti.genre1,
-                mvti.genre2,
-                mvti.genre3,
-                mvti.genre4,
-                mvti.genre5,
-                ]    
-            recommendations_list = set()
-            for movie in movies:
-                genres = movie.genres.all()
-                for genre in genres:
-                    if genre.pk in my_genres:
-                        recommendations_list.add(movie)
-            recommendations = sample(list(recommendations_list), 20)
-            serializer = MovieSerializer(recommendations, many=True)
-            return Response(serializer.data)
-        else:
-            movies = get_list_or_404(Movie)
-            recommendations = sample(movies, 10)
-            serializer = MovieSerializer(recommendations, many=True)
-            return Response(serializer.data)
+        # if request.user.is_authenticated:
+        my_genres = [
+            mvti.genre1,
+            mvti.genre2,
+            mvti.genre3,
+            mvti.genre4,
+            mvti.genre5,
+            ]    
+        recommendations_list = set()
+        for movie in movies:
+            genres = movie.genres.all()
+            for genre in genres:
+                if genre.pk in my_genres:
+                    recommendations_list.add(movie)
+        recommendations = sample(list(recommendations_list), 20)
+        serializer = MovieSerializer(recommendations, many=True)
+        return Response(serializer.data)

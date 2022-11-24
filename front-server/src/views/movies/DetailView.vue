@@ -13,19 +13,25 @@
       <div class="col-7">
         <div class="card mt-5 text-start" id="body">
           <div class="card-body">
-            <div v-if="!isLike">
-              <i class="bi bi-heart" @click="like" style="color:crimson;"></i>
+            <div class="card-header d-flex justify-content-between">
+              <h1><b>{{ movie?.title }}</b></h1>
+              <div v-if="!isLike">
+                <h1>
+                  <i class="bi bi-heart" @click="like" style="color:crimson;"></i>                
+                </h1>
+              </div>
+              <div v-else>
+                <h1>
+                  <i class="bi bi-heart-fill" @click="like" style="color:crimson;"></i>
+                </h1>
+              </div>
             </div>
-            <div v-else>
-              <i class="bi bi-heart-fill" @click="like" style="color:crimson;"></i>
-            </div>
-            <h1 class="card-header"><b>{{ movie?.title }}</b></h1>
-            <h5><b>{{ movie?.released_date }} | {{ movie?.vote_avg }}</b></h5>
+            <h5><b>{{ movie?.released_date }} | ⭐{{ movie?.vote_avg }}</b></h5>
             <!-- <p>{{ movie?.genres }}</p> -->
             <h3><b>개요</b></h3>
-            <p>{{ movie?.overview }}</p>
+            <p><b>{{ movie?.overview }}</b></p>
             <h3><b>티저 영상</b></h3>
-            <iframe :src="videoUrl" frameborder="0" width="500" height="300"></iframe>
+            <iframe :src="videoUrl" frameborder="0" width="640" height="360"></iframe>
           </div>
         </div>
         <div id="actorCard" class="text-align-center mt-3">
@@ -125,14 +131,13 @@ export default {
     // 영화에 달린 코멘트 가져오기
     getComments(){
       const movieId = this.$route.params.id
-
       this.$store.dispatch('get_comments', movieId)
     },
 
     // 영화 좋아요
     like() {
       const movie_id = this.$route.params.id
-
+      // const bi = document.querySelector('.bi')
       axios({
         method: 'post',
         url: `${API_URL}/api/v1/movies/${this.$route.params.id}/like/${this.$store.state.userpk}/`,
@@ -145,13 +150,22 @@ export default {
       })
         .then((res) => {
           this.isLike = res.data
-          console.log(this.isLike);
+          this.$store.commit('GETLIKE', this.movie.title)
         })
         .catch((err) => {
           console.log(err);
-        });
-      
-    }
+        })
+      // if(this.isLike.liked) {
+      //   bi.classList.remove('bi-heart')
+      //   bi.classList.add('bi-heart-fill')
+      //   // console.log('좋아요')
+      // }
+      // else {
+      //   bi.classList.remove('bi-heart-fill')
+      //   bi.classList.add('bi-heart')
+      //   // console.log('취소')
+      // }
+    },
   }
 }
 </script>
@@ -168,6 +182,9 @@ export default {
   #actorCard{
     background-color: rgba( 255, 255, 255, 0.7 );
     color: black;
+  }
+  .bi{
+    cursor: pointer;
   }
 </style>
 

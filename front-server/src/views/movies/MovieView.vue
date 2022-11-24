@@ -17,11 +17,15 @@ export default {
   },
   created() {
     this.getMovies()
+    this.getRecMovies()
   },
   methods: {
     getMovies(){
       this.$store.dispatch('getMovies')
-    }
+    },
+    getRecMovies(){
+      this.$store.dispatch('getRecMovies')
+    },
   }
 }
 </script>

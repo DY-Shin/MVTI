@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Comment List</h3>
+    <h3><b>Comment List</b></h3>
     <CommentForm/>
     <ul>
       <CommentListItem

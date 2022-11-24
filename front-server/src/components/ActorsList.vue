@@ -1,7 +1,7 @@
 <template>
   <swiper-slide role="tab" id="card">
     <img :src="actorImg" alt="img" style="width: 50px;" class="mt-3">
-    <p>{{ actor.actor }}</p>
+    <p><b>{{ actor.actor }}</b></p>
   </swiper-slide>
 </template>
 
@@ -29,7 +29,7 @@ export default {
     border: 1px solid black;
     margin: 0 auto
   } */
-  #card {
+  #actorCard #card {
     /* background-color: rgba( 255, 255, 255, 0.7 ); */
     color: black;
   }
